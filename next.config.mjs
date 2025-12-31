@@ -1,32 +1,37 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import withSerwistInit from "@serwist/next";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const withSerwist = withSerwistInit({
-  // Note: This is only an example. If you use Pages Router,
-  // use something else that works, such as "service-worker/index.ts".
-  swSrc: "src/app/sw.ts",
+  swSrc: "src/sw.ts",
   swDest: "public/sw.js",
-  disable: process.env.NODE_ENV !== "production",
+  disable: false,
 });
 
-/**
- * @type {import('next').NextConfig}
- */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  redirects: async () => {
-    return [
-      {
-        source: "/dashboard",
-        destination: "/dashboard/projects",
-        permanent: false,
-      },
-    ];
-  },
   trailingSlash: true,
-  eslint: {
-    ignoreDuringBuilds: true,
+
+  redirects: async () => [
+    {
+      source: "/dashboard",
+      destination: "/dashboard/workspaces",
+      permanent: false,
+    },
+  ],
+
+  // Configurar root do workspace para Turbopack
+  turbopack: {
+    root: __dirname,
+    rules: {},
   },
-  // Required for Next.js 16+ when webpack config is added by plugins like @serwist/next
-  turbopack: {},
-}
+
+  // Configurações do TypeScript
+  typescript: {
+    // ignoreBuildErrors: true, // Descomente se precisar ignorar erros durante build
+  },
+};
 
 export default withSerwist(nextConfig);

@@ -4,7 +4,7 @@ import { sendOTP } from "~/lib/server/mail";
 
 export const POST = async (req: Request) => {
   let body;
-  
+
   try {
     body = await req.json();
   } catch (error) {
@@ -21,13 +21,10 @@ export const POST = async (req: Request) => {
   // Validar entrada
   if (!body.email) {
     console.error("❌ Email não fornecido na requisição");
-    return new Response(
-      JSON.stringify({ error: "Email é obrigatório" }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ error: "Email é obrigatório" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   if (!body.email.includes("@") || !body.email.includes(".")) {
@@ -55,14 +52,14 @@ export const POST = async (req: Request) => {
       update: {},
       create: {
         email: body.email,
-        emailVerified: false,
+        emailVerifiedAt: null, // Não verificado ainda
       },
     });
 
     console.log("👤 Usuário encontrado/criado:", {
       userId: user.id,
       email: user.email,
-      emailVerified: user.emailVerified,
+      emailVerified: !!user.emailVerifiedAt,
     });
 
     // Gerar código OTP

@@ -81,7 +81,7 @@ export const GET = async (request: Request) => {
         name: githubUser.name,
         email: githubUser.email,
         picture: githubUser.avatar_url,
-        emailVerified: Boolean(githubUser.email),
+        emailVerifiedAt: githubUser.email ? new Date() : null,
       },
     });
 

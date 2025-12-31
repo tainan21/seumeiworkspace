@@ -6,7 +6,7 @@ const I18nMiddleware = createI18nMiddleware({
   defaultLocale: "en",
 });
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   return I18nMiddleware(request);
 }
 
@@ -15,3 +15,4 @@ export const config = {
     "/((?!api|static|.*\\..*|_next|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };
+

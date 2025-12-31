@@ -1,13 +1,13 @@
-import ThanksTemp from "emails/thanks";
-import VerificationTemp from "emails/verification";
+import ThanksTemp from "../../../emails/thanks";
+import VerificationTemp from "../../../emails/verification";
 import { Resend } from "resend";
 import { type SendOTPProps, type SendWelcomeEmailProps } from "~/types";
 import { generateId } from "../utils";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 // Email "from" configurável via variável de ambiente (fallback para domínio de teste)
 const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+  process.env.RESEND_FROM_EMAIL || "onboarding@seumei.taicode.com.br";
 
 // Validar API Key na inicialização
 if (!process.env.RESEND_API_KEY) {
@@ -92,9 +92,39 @@ export const sendOTP = async ({ toMail, code, userName }: SendOTPProps) => {
       text: "",
     });
 
+    // Verificar se há erros na resposta primeiro
+    if ("error" in result && result.error) {
+      console.error("❌ Erro na resposta do Resend:", {
+        to: toMail,
+        error: result.error,
+        timestamp: new Date().toISOString(),
+      });
+      throw new Error(`Erro do Resend: ${JSON.stringify(result.error)}`);
+    }
+
+    // Validar resposta do Resend
+    if (!result.data) {
+      console.error("❌ Resend retornou resposta vazia:", {
+        to: toMail,
+        result: result,
+        timestamp: new Date().toISOString(),
+      });
+      throw new Error(
+        "Resend retornou resposta inválida. Verifique a API key e o domínio."
+      );
+    }
+
+    if (!result.data.id) {
+      console.warn("⚠️ Resend retornou resposta sem ID:", {
+        to: toMail,
+        result: result,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     console.log("✅ Email OTP enviado com sucesso:", {
       to: toMail,
-      emailId: result.data?.id,
+      emailId: result.data.id,
       timestamp: new Date().toISOString(),
     });
 
@@ -116,18 +146,24 @@ export const sendOTP = async ({ toMail, code, userName }: SendOTPProps) => {
       );
     }
 
-    if (error.message?.includes("domain") || error.message?.includes("Domain")) {
+    if (
+      error.message?.includes("domain") ||
+      error.message?.includes("Domain")
+    ) {
       throw new Error(
         `Domínio de email não verificado. Usando: ${FROM_EMAIL}. Verifique a configuração no Resend.`
       );
     }
 
-    if (error.message?.includes("rate limit") || error.message?.includes("limit")) {
-      throw new Error(
-        "Limite de emails excedido. Tente novamente mais tarde."
-      );
+    if (
+      error.message?.includes("rate limit") ||
+      error.message?.includes("limit")
+    ) {
+      throw new Error("Limite de emails excedido. Tente novamente mais tarde.");
     }
 
-    throw new Error(`Falha ao enviar email: ${error.message || "Erro desconhecido"}`);
+    throw new Error(
+      `Falha ao enviar email: ${error.message || "Erro desconhecido"}`
+    );
   }
 };

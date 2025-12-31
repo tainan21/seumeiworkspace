@@ -141,7 +141,7 @@ export default function AuthForm() {
                   {...register("email")}
                 />
                 {errors?.email && (
-                  <p className="mt-2 text-xs text-destructive">
+                  <p className="text-destructive mt-2 text-xs">
                     {errors?.email.message}
                   </p>
                 )}
@@ -159,10 +159,14 @@ export default function AuthForm() {
             </div>
           </form>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">/</span>
+            <span className="bg-background text-muted-foreground px-2">/</span>
           </div>
           {isGithubLoading ? (
-            <Button className="w-full cursor-not-allowed" variant="outline">
+            <Button
+              className="w-full cursor-not-allowed"
+              variant="outline"
+              asChild
+            >
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             </Button>
           ) : (

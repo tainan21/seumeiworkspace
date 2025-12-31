@@ -3,9 +3,13 @@ import {
   encodeBase32LowerCaseNoPadding,
   encodeHexLowerCase,
 } from "@oslojs/encoding";
-import type { Session, User } from "@prisma/client";
 import { cookies } from "next/headers";
 import { prisma } from "~/lib/server/db";
+
+type Session = Awaited<ReturnType<typeof prisma.session.create>>;
+type User = NonNullable<Awaited<ReturnType<typeof prisma.user.findUnique>>>;
+
+export type { Session, User };
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
@@ -19,13 +23,13 @@ export async function createSession(
   userId: string
 ): Promise<Session> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-  const session: Session = {
-    id: sessionId,
-    userId,
-    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
-  };
-  await prisma.session.create({
-    data: session,
+  const session = await prisma.session.create({
+    data: {
+      id: sessionId,
+      token, // Armazenar o token conforme schema
+      userId,
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+    },
   });
   return session;
 }

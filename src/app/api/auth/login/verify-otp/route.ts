@@ -19,7 +19,7 @@ export const POST = async (req: Request, response: Response) => {
       select: {
         id: true,
         email: true,
-        emailVerified: true,
+        emailVerifiedAt: true,
       },
     });
 
@@ -42,13 +42,13 @@ export const POST = async (req: Request, response: Response) => {
 
     await invalidateAllSessions(user.id);
 
-    if (!user.emailVerified) {
+    if (!user.emailVerifiedAt) {
       await prisma.user.update({
         where: {
           id: user.id,
         },
         data: {
-          emailVerified: true,
+          emailVerifiedAt: new Date(),
         },
       });
     }

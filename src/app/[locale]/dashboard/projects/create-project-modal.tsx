@@ -25,8 +25,8 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { toast } from "~/hooks/use-toast";
-import { FreePlanLimitError } from "~/lib/utils";
-import { checkIfFreePlanLimitReached, createProject } from "./action";
+import { ProjectLimitError } from "~/domains/workspace/errors";
+import { createProject } from "./action";
 
 export const projectSchema = z.object({
   name: z.string().min(1, { message: "Please enter a project name." }),
@@ -47,10 +47,6 @@ export default function CreateProjectModal() {
 
   async function onSubmit(values: ProjectFormValues) {
     try {
-      const limitReached = await checkIfFreePlanLimitReached();
-      if (limitReached) {
-        throw new FreePlanLimitError();
-      }
       await createProject(values);
       toast({
         title: "Project created successfully.",
@@ -58,15 +54,20 @@ export default function CreateProjectModal() {
       form.reset();
       setIsOpen(false);
     } catch (error) {
-      console.log(error);
-      if (error instanceof FreePlanLimitError) {
+      console.error("[CreateProjectModal] Error:", error);
+      if (error instanceof ProjectLimitError) {
         return toast({
-          title: "Free plan limit reached. Please upgrade your plan.",
+          title:
+            error.message ||
+            "Limite de projetos atingido. Máximo 3 projetos por usuário.",
           variant: "destructive",
         });
       }
       return toast({
-        title: "Error creating project. Please try again.",
+        title:
+          error instanceof Error
+            ? error.message
+            : "Error creating project. Please try again.",
         variant: "destructive",
       });
     }
@@ -76,7 +77,7 @@ export default function CreateProjectModal() {
       <DialogTrigger asChild>
         <Card
           role="button"
-          className="flex flex-col items-center justify-center gap-y-2.5 p-8 text-center hover:bg-accent"
+          className="hover:bg-accent flex flex-col items-center justify-center gap-y-2.5 p-8 text-center"
         >
           <Button size="icon" variant="ghost">
             <Icons.projectPlus className="h-8 w-8" />

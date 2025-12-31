@@ -1,43 +1,45 @@
 export default {
   header: {
-    changelog: "Journal des modifications",
-    about: "Environ",
+    changelog: "Mises à jour",
+    about: "À propos de Seumei",
     login: "Se connecter",
     dashboard: "Tableau de bord",
   },
   hero: {
     top: "Présentation de",
-    main: "Modèle de démarrage rapide pour votre prochain projet",
-    sub: "Doté de toutes les fonctionnalités nécessaires pour commencer.",
+    main: "Seumei — le système universel pour les petites entreprises",
+    sub: "Tout ce dont vous avez besoin pour gérer votre activité en un seul endroit.",
     firstButton: "Commencer",
-    tools: "Construit à l'aide d'excellents outils",
-    on: "sur",
+    tools: "Construit avec des technologies modernes",
+    on: "avec",
   },
   features: {
-    top: "Caractéristiques",
+    top: "Fonctionnalités",
     details:
-      "Cette template comprend des fonctionnalités telles que l'authentification, les routes API, le téléchargement de fichiers et bien plus dans le répertoire App de Next.js.",
+      "Seumei centralise l’authentification, la gestion, les APIs, le téléversement de fichiers, les paiements et l’automatisation dans une plateforme unique et évolutive.",
     libs: {
       nextjs:
-        "Répertoire App, routage, mises en page, routes API, composants serveur, actions serveur.",
+        "App Router, routage dynamique, mises en page, APIs, Server Components et Server Actions.",
       tailwindcss:
-        "Composants UI construits avec Radix UI et stylisés avec Tailwind CSS.",
+        "Interface moderne avec des composants accessibles stylisés via Tailwind CSS.",
       postgres:
-        "Utilisation de Postgres avec Prisma ORM, hébergé sur Vercel Postgres.",
-      lucia: "Authentification et autorisation avec LuciaAuth v3.",
+        "Base de données Postgres avec ORM, conçue pour évoluer en toute sécurité.",
+      lucia:
+        "Authentification et autorisation sécurisées pour les utilisateurs et les espaces de travail.",
       uploadthing:
-        "Téléchargez et prévisualisez des fichiers facilement avec UploadThing.",
+        "Téléversement et prévisualisation de fichiers simples et efficaces.",
       reactEmail:
-        "Créez des e-mails avec React Email et envoyez-les avec Resend.",
+        "Création et envoi d’e-mails transactionnels et de notifications automatisées.",
       internationalization:
-        "Support d'internationalisation avec Next-International, sécurisé par typage.",
-      stripe: "Recevez et traitez les paiements avec Stripe.",
-      vercel: "Déploiements de production et de prévisualisation avec Vercel.",
+        "Support complet de l’internationalisation avec un typage sécurisé.",
+      stripe: "Traitement des paiements et gestion des abonnements intégrés.",
+      vercel:
+        "Déploiement continu avec environnements de prévisualisation et de production.",
     },
     aboutMd:
-      "ChadNext inclut également une page de journal des modifications et une page À propos, construites avec ",
+      "Seumei inclut également des pages de mises à jour et d’informations institutionnelles.",
   },
   notFound: {
-    title: "Page non trouvée!",
+    title: "Page introuvable !",
   },
 } as const;

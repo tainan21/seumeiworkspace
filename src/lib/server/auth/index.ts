@@ -1,4 +1,4 @@
-import { generateRandomString, RandomReader } from "@oslojs/crypto/random";
+import { generateRandomString, type RandomReader } from "@oslojs/crypto/random";
 import { createMiddleware } from "next-safe-action";
 import { prisma } from "~/lib/server/db";
 import { getCurrentSession } from "./session";

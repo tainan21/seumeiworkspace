@@ -11,9 +11,8 @@ import { siteConfig, siteUrl } from "~/config/site";
 import { cn } from "~/lib/utils";
 import { I18nProviderClient } from "~/locales/client";
 import "../globals.css";
-
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 

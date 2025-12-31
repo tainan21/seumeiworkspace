@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "@prisma/client";
 import { Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useTransition } from "react";
@@ -19,6 +18,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/hooks/use-toast";
+import { type User } from "~/lib/server/auth/session";
 import { settingsSchema, type SettingsValues } from "~/types";
 import {
   removeNewImageFromCDN,

@@ -1,49 +1,363 @@
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DB_PRISMA_URL") // uses connection pooling
-  directUrl = env("DB_URL_NON_POOLING") // uses a direct connection
+  url       = env("DB_PRISMA_URL")
+  directUrl = env("DB_URL_NON_POOLING")
+}
+
+model User {
+  id                     String                  @id @default(cuid())
+  name                   String?
+  email                  String?                 @unique
+  emailVerifiedAt        DateTime?
+  avatarUrl              String?
+  picture                String?
+  githubId               Int?                    @unique
+  status                 UserStatus              @default(ACTIVE)
+  lastLoginAt            DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  emailVerificationCodes EmailVerificationCode[]
+  globalProfile          GlobalUser?
+  sessions               Session[]
+  workspaceMemberships   WorkspaceMember[]
+  // Campos do Stripe
+  stripeCustomerId       String?                 @unique @map("stripe_customer_id")
+  stripeSubscriptionId   String?                 @unique @map("stripe_subscription_id")
+  stripePriceId          String?                 @map("stripe_price_id")
+  stripeCurrentPeriodEnd DateTime?               @map("stripe_current_period_end")
+  projects               Project[]
+
+  @@index([email])
+  @@index([status])
+  @@map("users")
 }
 
 model Session {
   id        String   @id @default(cuid())
   userId    String
+  token     String   @unique
   expiresAt DateTime
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+  @@map("sessions")
 }
 
 model EmailVerificationCode {
   id        String   @id @default(cuid())
-  code      String
   userId    String
+  code      String   @unique
   email     String
   expiresAt DateTime
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([code])
+  @@index([expiresAt])
+  @@map("email_verification_codes")
 }
 
-model User {
-  id                     String                  @id @unique @default(cuid())
-  name                   String?
-  email                  String?                 @unique
-  emailVerified          Boolean?                @default(false)
-  picture                String?
-  githubId               Int?                    @unique
-  sessions               Session[]
-  projects               Project[]
-  emailVerificationCodes EmailVerificationCode[]
+model Workspace {
+  id                 String             @id @default(cuid())
+  name               String
+  slug               String             @unique
+  description        String?
+  type               WorkspaceType      @default(SINGLE_BUSINESS)
+  category           WorkspaceCategory  @default(LIVRE)
+  status             WorkspaceStatus    @default(ACTIVE)
+  settings           Json               @default("{}")
+  enterpriseMotherId String?            @unique
+  createdById        String
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  componentLayouts   ComponentLayout[]
+  enterprises        Enterprise[]
+  subscription       Subscription?
+  themes             ThemeUI[]
+  wallet             Wallet?
+  features           WorkspaceFeature[]
+  invites            WorkspaceInvite[]
+  members            WorkspaceMember[]
+  enterpriseMother   Enterprise?        @relation("EnterpriseMother", fields: [enterpriseMotherId], references: [id])
 
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  @@index([slug])
+  @@index([status])
+  @@index([type])
+  @@index([category])
+  @@map("workspaces")
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model WorkspaceMember {
+  id           String        @id @default(cuid())
+  workspaceId  String
+  userId       String
+  role         WorkspaceRole @default(VIEWER)
+  permissions  String[]
+  isActive     Boolean       @default(true)
+  joinedAt     DateTime      @default(now())
+  lastActionAt DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([workspaceId])
+  @@index([userId])
+  @@index([role])
+  @@index([isActive])
+  @@map("workspace_members")
+}
+
+model WorkspaceInvite {
+  id          String        @id @default(cuid())
+  workspaceId String
+  email       String
+  role        WorkspaceRole @default(VIEWER)
+  token       String        @unique
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@index([token])
+  @@index([expiresAt])
+  @@map("workspace_invites")
+}
+
+model Enterprise {
+  id                String                 @id @default(cuid())
+  workspaceId       String
+  type              EnterpriseType
+  legalName         String?
+  tradeName         String
+  document          String?                @unique
+  documentType      EnterpriseDocumentType @default(NONE)
+  segment           String
+  subSegment        String?
+  isMain            Boolean                @default(false)
+  isActive          Boolean                @default(true)
+  address           Json?
+  contact           Json
+  createdById       String?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  componentLayouts  ComponentLayout[]
+  workspace         Workspace              @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  themes            ThemeUI[]
+  workspaceAsMother Workspace?             @relation("EnterpriseMother")
+
+  @@index([workspaceId])
+  @@index([document])
+  @@index([type])
+  @@index([isMain])
+  @@index([isActive])
+  @@map("enterprises")
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  workspaceId          String             @unique
+  planId               String
+  status               SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  stripeCustomerId     String?            @unique
+  stripeSubscriptionId String?            @unique
+  stripePriceId        String?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  plan                 Plan               @relation(fields: [planId], references: [id])
+  workspace            Workspace          @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([planId])
+  @@map("subscriptions")
+}
+
+model Plan {
+  id            String         @id @default(cuid())
+  code          String         @unique
+  name          String
+  description   String?
+  price         Decimal        @db.Decimal(15, 2)
+  currency      String         @default("BRL")
+  billingCycle  BillingCycle
+  stripePriceId String?        @unique
+  features      Json           @default("[]")
+  limits        Json           @default("{}")
+  isActive      Boolean        @default(true)
+  isPublic      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscriptions Subscription[]
+
+  @@index([code])
+  @@index([isActive])
+  @@map("plans")
+}
+
+model Wallet {
+  id              String              @id @default(cuid())
+  workspaceId     String              @unique
+  balance         Decimal             @default(0) @db.Decimal(15, 2)
+  reservedBalance Decimal             @default(0) @db.Decimal(15, 2)
+  currency        String              @default("COIN")
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  transactions    WalletTransaction[]
+  workspace       Workspace           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@map("wallets")
+}
+
+model WalletTransaction {
+  id            String                @id @default(cuid())
+  walletId      String
+  type          WalletTransactionType
+  amount        Decimal               @db.Decimal(15, 2)
+  description   String
+  referenceType String?
+  referenceId   String?
+  createdAt     DateTime              @default(now())
+  wallet        Wallet                @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("wallet_transactions")
+}
+
+model Feature {
+  id                String             @id @default(cuid())
+  code              String             @unique
+  name              String
+  category          FeatureCategory
+  description       String?
+  requiresPlan      WorkspacePlan?
+  isActive          Boolean            @default(true)
+  isPublic          Boolean            @default(false)
+  icon              String?
+  version           String             @default("1.0.0")
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  workspaceFeatures WorkspaceFeature[]
+
+  @@index([code])
+  @@index([category])
+  @@index([isActive])
+  @@map("features")
+}
+
+model WorkspaceFeature {
+  id          String        @id @default(cuid())
+  workspaceId String
+  featureId   String
+  source      FeatureSource
+  enabled     Boolean       @default(true)
+  enabledAt   DateTime?
+  expiresAt   DateTime?
+  config      Json          @default("{}")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  feature     Feature       @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, featureId])
+  @@index([workspaceId])
+  @@index([featureId])
+  @@index([enabled])
+  @@index([expiresAt])
+  @@map("workspace_features")
+}
+
+model ThemeUI {
+  id                 String      @id @default(cuid())
+  workspaceId        String
+  enterpriseMotherId String
+  themeType          ThemeUIType
+  themeName          String
+  colors             Json
+  typography         Json
+  layout             Json
+  darkModeEnabled    Boolean     @default(false)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  enterprise         Enterprise  @relation(fields: [enterpriseMotherId], references: [id], onDelete: Cascade)
+  workspace          Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, enterpriseMotherId])
+  @@index([workspaceId])
+  @@index([enterpriseMotherId])
+  @@map("theme_ui")
+}
+
+model ThemePreset {
+  id          String             @id @default(cuid())
+  code        String             @unique
+  name        String
+  description String?
+  category    WorkspaceCategory?
+  themeType   ThemeUIType
+  colors      Json
+  typography  Json
+  layout      Json
+  isActive    Boolean            @default(true)
+  isPublic    Boolean            @default(true)
+  isPremium   Boolean            @default(false)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([code])
+  @@index([category])
+  @@index([isActive])
+  @@map("theme_presets")
+}
+
+model ComponentLayout {
+  id                 String     @id @default(cuid())
+  workspaceId        String
+  enterpriseMotherId String
+  layoutVersion      Int        @default(1)
+  components         Json
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  enterprise         Enterprise @relation(fields: [enterpriseMotherId], references: [id], onDelete: Cascade)
+  workspace          Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, enterpriseMotherId])
+  @@index([workspaceId])
+  @@index([enterpriseMotherId])
+  @@map("component_layouts")
+}
+
+model GlobalUser {
+  id        String         @id @default(cuid())
+  userId    String         @unique
+  role      GlobalUserRole
+  isActive  Boolean        @default(true)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([role])
+  @@index([isActive])
+  @@map("global_users")
 }
 
 model Project {
@@ -51,7 +365,1044 @@ model Project {
   name      String
   domain    String
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("projects")
+}
+
+model AnalyticsEvent {
+  id          String   @id @default(cuid())
+  workspaceId String
+  userId      String?
+  eventType   String
+  entityType  String?
+  entityId    String?
+  properties  Json     @default("{}")
+  createdAt   DateTime @default(now())
+
+  @@index([workspaceId])
+  @@index([eventType])
+  @@index([createdAt])
+  @@map("analytics_events")
+}
+
+model AnalyticsMetric {
+  id          String   @id @default(cuid())
+  workspaceId String
+  metricType  String
+  period      String
+  periodDate  DateTime
+  value       Decimal  @db.Decimal(15, 2)
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@unique([workspaceId, metricType, period, periodDate])
+  @@index([workspaceId])
+  @@index([metricType])
+  @@index([periodDate])
+  @@map("analytics_metrics")
+}
+
+model OnboardingFlow {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  description String?
+  steps       Json
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([code])
+  @@index([isActive])
+  @@map("onboarding_flows")
+}
+
+model OnboardingCompletion {
+  id             String    @id @default(cuid())
+  workspaceId    String    @unique
+  flowId         String
+  currentStep    Int       @default(0)
+  completedSteps Json      @default("[]")
+  isCompleted    Boolean   @default(false)
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([workspaceId])
+  @@index([flowId])
+  @@index([isCompleted])
+  @@map("onboarding_completions")
+}
+
+model OnboardingTemplate {
+  id          String             @id @default(cuid())
+  code        String             @unique
+  name        String
+  description String?
+  category    WorkspaceCategory?
+  steps       Json
+  config      Json               @default("{}")
+  isActive    Boolean            @default(true)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([code])
+  @@index([category])
+  @@index([isActive])
+  @@map("onboarding_templates")
+}
+
+model RolePermission {
+  id          String   @id @default(cuid())
+  workspaceId String
+  name        String
+  code        String   @unique
+  description String?
+  permissions Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([code])
+  @@map("role_permissions")
+}
+
+model ModulePermission {
+  id         String   @id @default(cuid())
+  moduleId   String
+  roleId     String?
+  permission String
+  granted    Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([moduleId, roleId, permission])
+  @@index([moduleId])
+  @@index([roleId])
+  @@map("module_permissions")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  workspaceId String?
+  userId      String?
+  userEmail   String?
+  action      String
+  entityType  String
+  entityId    String?
+  changes     Json?
+  metadata    Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  @@index([workspaceId])
+  @@index([userId])
+  @@index([action])
+  @@index([entityType])
+  @@index([entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model Customer {
+  id           String                @id @default(cuid())
+  workspaceId  String
+  enterpriseId String?
+  name         String
+  email        String?
+  phone        String?
+  document     String?               @unique
+  documentType CustomerDocumentType?
+  address      Json?
+  status       CustomerStatus        @default(ACTIVE)
+  tags         String[]
+  notes        String?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([document])
+  @@index([status])
+  @@map("customers")
+}
+
+model Product {
+  id            String        @id @default(cuid())
+  workspaceId   String
+  enterpriseId  String?
+  name          String
+  sku           String?       @unique
+  barcode       String?       @unique
+  categoryId    String?
+  price         Decimal       @db.Decimal(15, 2)
+  costPrice     Decimal?      @db.Decimal(15, 2)
+  trackStock    Boolean       @default(false)
+  stockQuantity Decimal?      @db.Decimal(15, 2)
+  description   String?
+  images        String[]
+  status        ProductStatus @default(ACTIVE)
+  tags          String[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([categoryId])
+  @@index([sku])
+  @@index([status])
+  @@map("products")
+}
+
+model ProductCategory {
+  id          String   @id @default(cuid())
+  workspaceId String
+  name        String
+  description String?
+  parentId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([parentId])
+  @@map("product_categories")
+}
+
+model Order {
+  id            String        @id @default(cuid())
+  workspaceId   String
+  enterpriseId  String
+  orderNumber   String        @unique
+  customerId    String?
+  status        OrderStatus   @default(PENDING)
+  paymentStatus PaymentStatus @default(PENDING)
+  subtotal      Decimal       @db.Decimal(15, 2)
+  discount      Decimal       @default(0) @db.Decimal(15, 2)
+  tax           Decimal       @default(0) @db.Decimal(15, 2)
+  total         Decimal       @db.Decimal(15, 2)
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([customerId])
+  @@index([status])
+  @@index([orderNumber])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String?
+  name      String
+  quantity  Decimal  @db.Decimal(15, 2)
+  unitPrice Decimal  @db.Decimal(15, 2)
+  discount  Decimal  @default(0) @db.Decimal(15, 2)
+  total     Decimal  @db.Decimal(15, 2)
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+model Quote {
+  id                 String      @id @default(cuid())
+  workspaceId        String
+  enterpriseId       String
+  quoteNumber        String      @unique
+  customerId         String?
+  status             QuoteStatus @default(DRAFT)
+  subtotal           Decimal     @db.Decimal(15, 2)
+  discount           Decimal     @default(0) @db.Decimal(15, 2)
+  tax                Decimal     @default(0) @db.Decimal(15, 2)
+  total              Decimal     @db.Decimal(15, 2)
+  validUntil         DateTime?
+  convertedToOrderId String?     @unique
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([customerId])
+  @@index([status])
+  @@map("quotes")
+}
+
+model QuoteItem {
+  id        String   @id @default(cuid())
+  quoteId   String
+  productId String?
+  name      String
+  quantity  Decimal  @db.Decimal(15, 2)
+  unitPrice Decimal  @db.Decimal(15, 2)
+  discount  Decimal  @default(0) @db.Decimal(15, 2)
+  total     Decimal  @db.Decimal(15, 2)
+  createdAt DateTime @default(now())
+
+  @@index([quoteId])
+  @@index([productId])
+  @@map("quote_items")
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  workspaceId   String
+  enterpriseId  String
+  invoiceNumber String        @unique
+  customerId    String?
+  status        InvoiceStatus @default(DRAFT)
+  subtotal      Decimal       @db.Decimal(15, 2)
+  discount      Decimal       @default(0) @db.Decimal(15, 2)
+  tax           Decimal       @default(0) @db.Decimal(15, 2)
+  total         Decimal       @db.Decimal(15, 2)
+  paidAmount    Decimal       @default(0) @db.Decimal(15, 2)
+  issuedAt      DateTime
+  dueDate       DateTime
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([customerId])
+  @@index([status])
+  @@index([invoiceNumber])
+  @@index([dueDate])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id        String   @id @default(cuid())
+  invoiceId String
+  productId String?
+  name      String
+  quantity  Decimal  @db.Decimal(15, 2)
+  unitPrice Decimal  @db.Decimal(15, 2)
+  discount  Decimal  @default(0) @db.Decimal(15, 2)
+  total     Decimal  @db.Decimal(15, 2)
+  createdAt DateTime @default(now())
+
+  @@index([invoiceId])
+  @@index([productId])
+  @@map("invoice_items")
+}
+
+model Transaction {
+  id            String            @id @default(cuid())
+  workspaceId   String
+  enterpriseId  String?
+  invoiceId     String?
+  type          TransactionType
+  amount        Decimal           @db.Decimal(15, 2)
+  paymentMethod PaymentMethod
+  status        TransactionStatus @default(PENDING)
+  processedAt   DateTime?
+  description   String?
+  metadata      Json?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([invoiceId])
+  @@index([type])
+  @@index([status])
+  @@index([paymentMethod])
+  @@map("transactions")
+}
+
+model BankAccount {
+  id             String          @id @default(cuid())
+  workspaceId    String
+  enterpriseId   String
+  bankCode       String
+  bankName       String
+  agency         String
+  account        String
+  accountDigit   String
+  accountType    BankAccountType
+  holderName     String
+  holderDocument String
+  isActive       Boolean         @default(true)
+  isDefault      Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([isActive])
+  @@map("bank_accounts")
+}
+
+model BankTransaction {
+  id            String              @id @default(cuid())
+  bankAccountId String
+  type          BankTransactionType
+  amount        Decimal             @db.Decimal(15, 2)
+  description   String?
+  date          DateTime
+  postedAt      DateTime?
+  balance       Decimal?            @db.Decimal(15, 2)
+  externalId    String?             @unique
+  createdAt     DateTime            @default(now())
+
+  @@index([bankAccountId])
+  @@index([type])
+  @@index([date])
+  @@index([externalId])
+  @@map("bank_transactions")
+}
+
+model PixKey {
+  id           String     @id @default(cuid())
+  workspaceId  String
+  enterpriseId String
+  key          String     @unique
+  keyType      PixKeyType
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([key])
+  @@map("pix_keys")
+}
+
+model PixPayment {
+  id           String           @id @default(cuid())
+  workspaceId  String
+  enterpriseId String?
+  pixKeyId     String?
+  amount       Decimal          @db.Decimal(15, 2)
+  description  String?
+  qrCode       String?
+  qrCodeImage  String?
+  status       PixPaymentStatus @default(PENDING)
+  endToEndId   String?          @unique
+  txId         String?          @unique
+  expiresAt    DateTime?
+  paidAt       DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([workspaceId])
+  @@index([pixKeyId])
+  @@index([status])
+  @@index([endToEndId])
+  @@map("pix_payments")
+}
+
+model DasPayment {
+  id              String           @id @default(cuid())
+  workspaceId     String
+  enterpriseId    String
+  referenceNumber String           @unique
+  period          String
+  amount          Decimal          @db.Decimal(15, 2)
+  principal       Decimal          @db.Decimal(15, 2)
+  interest        Decimal          @default(0) @db.Decimal(15, 2)
+  fine            Decimal          @default(0) @db.Decimal(15, 2)
+  status          DasPaymentStatus @default(PENDING)
+  dueDate         DateTime
+  paidAt          DateTime?
+  barcode         String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([dueDate])
+  @@map("das_payments")
+}
+
+model PaymentLink {
+  id                String            @id @default(cuid())
+  workspaceId       String
+  enterpriseId      String?
+  code              String            @unique
+  name              String
+  description       String?
+  amount            Decimal?          @db.Decimal(15, 2)
+  allowCustomAmount Boolean           @default(false)
+  paymentMethods    Json              @default("[]")
+  maxUses           Int?
+  expiresAt         DateTime?
+  status            PaymentLinkStatus @default(ACTIVE)
+  usesCount         Int               @default(0)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([workspaceId])
+  @@index([code])
+  @@index([status])
+  @@map("payment_links")
+}
+
+model SplitRule {
+  id           String   @id @default(cuid())
+  workspaceId  String
+  enterpriseId String?
+  name         String
+  description  String?
+  conditions   Json
+  isActive     Boolean  @default(true)
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([isActive])
+  @@map("split_rules")
+}
+
+model SplitAllocation {
+  id             String              @id @default(cuid())
+  ruleId         String
+  recipientId    String
+  recipientType  SplitRecipientType
+  allocationType SplitAllocationType
+  percentage     Decimal?            @db.Decimal(5, 2)
+  fixedAmount    Decimal?            @db.Decimal(15, 2)
+  priority       Int                 @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  @@index([ruleId])
+  @@index([priority])
+  @@map("split_allocations")
+}
+
+model VirtualAccount {
+  id            String               @id @default(cuid())
+  workspaceId   String
+  enterpriseId  String?
+  accountId     String               @unique
+  accountNumber String               @unique
+  bankCode      String
+  bankName      String
+  status        VirtualAccountStatus @default(ACTIVE)
+  metadata      Json?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([accountId])
+  @@index([status])
+  @@map("virtual_accounts")
+}
+
+model Module {
+  id          String         @id @default(cuid())
+  code        String         @unique
+  name        String
+  description String?
+  category    ModuleCategory
+  isActive    Boolean        @default(true)
+  isCore      Boolean        @default(false)
+  icon        String?
+  version     String         @default("1.0.0")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([code])
+  @@index([category])
+  @@index([isActive])
+  @@map("modules")
+}
+
+model ModuleConfig {
+  id          String   @id @default(cuid())
+  workspaceId String
+  moduleId    String
+  config      Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([workspaceId, moduleId])
+  @@index([workspaceId])
+  @@index([moduleId])
+  @@map("module_configs")
+}
+
+model MeiProfile {
+  id           String   @id @default(cuid())
+  workspaceId  String
+  enterpriseId String
+  cnpj         String   @unique
+  name         String
+  email        String?
+  phone        String?
+  mainActivity String
+  activities   String[]
+  address      Json?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([enterpriseId])
+  @@index([cnpj])
+  @@map("mei_profiles")
+}
+
+model DunningPolicy {
+  id           String   @id @default(cuid())
+  workspaceId  String
+  name         String
+  description  String?
+  maxAttempts  Int      @default(3)
+  intervalDays Int      @default(7)
+  actions      Json
+  isActive     Boolean  @default(true)
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([isActive])
+  @@map("dunning_policies")
+}
+
+model DunningJob {
+  id            String           @id @default(cuid())
+  workspaceId   String
+  policyId      String
+  invoiceId     String
+  status        DunningJobStatus @default(PENDING)
+  attemptNumber Int
+  maxAttempts   Int
+  scheduledAt   DateTime
+  executedAt    DateTime?
+  nextAttemptAt DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([workspaceId])
+  @@index([policyId])
+  @@index([invoiceId])
+  @@index([status])
+  @@index([scheduledAt])
+  @@map("dunning_jobs")
+}
+
+model DunningLog {
+  id           String           @id @default(cuid())
+  jobId        String
+  action       DunningAction
+  status       DunningLogStatus @default(PENDING)
+  success      Boolean
+  errorMessage String?
+  metadata     Json?
+  executedAt   DateTime         @default(now())
+  createdAt    DateTime         @default(now())
+
+  @@index([jobId])
+  @@index([status])
+  @@index([executedAt])
+  @@map("dunning_logs")
+}
+
+model MessageTemplate {
+  id          String              @id @default(cuid())
+  workspaceId String
+  name        String
+  code        String
+  type        MessageTemplateType
+  subject     String?
+  body        String
+  channels    String[]
+  isActive    Boolean             @default(true)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@unique([workspaceId, code])
+  @@index([workspaceId])
+  @@index([code])
+  @@index([type])
+  @@map("message_templates")
+}
+
+model Aviso {
+  id          String    @id @default(cuid())
+  workspaceId String?
+  userId      String?
+  title       String
+  message     String
+  type        AvisoType @default(INFO)
+  actionLabel String?
+  actionUrl   String?
+  isRead      Boolean   @default(false)
+  readAt      DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([workspaceId])
+  @@index([userId])
+  @@index([isRead])
+  @@index([expiresAt])
+  @@map("avisos")
+}
+
+model FeatureFlagOverride {
+  id          String    @id @default(cuid())
+  workspaceId String?
+  featureCode String
+  enabled     Boolean
+  expiresAt   DateTime?
+  reason      String?
+  createdBy   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([workspaceId, featureCode])
+  @@index([workspaceId])
+  @@index([featureCode])
+  @@index([enabled])
+  @@map("feature_flag_overrides")
+}
+
+model UserDashboardSettings {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  workspaceId    String
+  layout         Json
+  defaultFilters Json     @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([userId, workspaceId])
+  @@index([userId])
+  @@index([workspaceId])
+  @@map("user_dashboard_settings")
+}
+
+model PipelineEvent {
+  id          String              @id @default(cuid())
+  workspaceId String
+  eventType   String
+  entityType  String?
+  entityId    String?
+  payload     Json
+  status      PipelineEventStatus @default(PENDING)
+  attempts    Int                 @default(0)
+  processedAt DateTime?
+  error       String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([eventType])
+  @@map("pipeline_events")
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+}
+
+enum WorkspaceType {
+  SINGLE_BUSINESS
+  FRANCHISE
+}
+
+enum WorkspaceCategory {
+  DELIVERY
+  AUTONOMO
+  COMERCIO
+  LOJA
+  SERVICOS
+  CONSTRUCAO
+  LIVRE
+}
+
+enum WorkspaceStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MANAGER
+  OPERATOR
+  VIEWER
+}
+
+enum EnterpriseType {
+  AUTONOMO
+  EMPRESA
+}
+
+enum EnterpriseDocumentType {
+  CPF
+  CNPJ
+  NONE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  UNPAID
+  TRIALING
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+  LIFETIME
+}
+
+enum WalletTransactionType {
+  ONBOARDING_BONUS
+  PLAN_REWARD
+  PROMOTION
+  EXTENSION_PURCHASE
+  AI_CONSUMPTION
+  MANUAL_CREDIT
+  MANUAL_DEBIT
+}
+
+enum FeatureCategory {
+  CORE
+  AI
+  AUTOMATION
+  UI
+  INTEGRATION
+}
+
+enum WorkspacePlan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum FeatureSource {
+  PLAN
+  STORE
+  PROMOTION
+  ONBOARDING
+}
+
+enum ThemeUIType {
+  SYSTEM
+  TEMPLATE
+  CUSTOM
+}
+
+enum GlobalUserRole {
+  ADMIN
+  SUPPORT
+  BILLING
+}
+
+enum CustomerDocumentType {
+  CPF
+  CNPJ
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL
+  PAID
+  REFUNDED
+  FAILED
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CONVERTED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PARTIAL
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  CREDIT_CARD
+  DEBIT_CARD
+  PIX
+  BANK_TRANSFER
+  DAS
+  OTHER
+}
+
+enum BankAccountType {
+  CHECKING
+  SAVINGS
+}
+
+enum BankTransactionType {
+  DEBIT
+  CREDIT
+}
+
+enum PixKeyType {
+  CPF
+  CNPJ
+  EMAIL
+  PHONE
+  RANDOM
+}
+
+enum PixPaymentStatus {
+  PENDING
+  CREATED
+  PROCESSING
+  COMPLETED
+  EXPIRED
+  CANCELLED
+  FAILED
+}
+
+enum DasPaymentStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum PaymentLinkStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+}
+
+enum SplitRecipientType {
+  PIX_KEY
+  BANK_ACCOUNT
+  EXTERNAL_ID
+}
+
+enum SplitAllocationType {
+  PERCENTAGE
+  FIXED
+}
+
+enum VirtualAccountStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ModuleCategory {
+  SALES
+  INVENTORY
+  FINANCE
+  CRM
+  ACCOUNTING
+  REPORTS
+  INTEGRATIONS
+  OTHER
+}
+
+enum DunningJobStatus {
+  PENDING
+  SCHEDULED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum DunningLogStatus {
+  PENDING
+  SENT
+  DELIVERED
+  FAILED
+  BOUNCED
+}
+
+enum DunningAction {
+  EMAIL
+  SMS
+  WHATSAPP
+  NOTIFICATION
+}
+
+enum MessageTemplateType {
+  EMAIL
+  SMS
+  WHATSAPP
+  NOTIFICATION
+  INVOICE
+  ORDER
+  QUOTE
+}
+
+enum AvisoType {
+  INFO
+  WARNING
+  ERROR
+  SUCCESS
+}
+
+enum PipelineEventStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
 }

@@ -9,6 +9,11 @@ import LogoutButton from "../shared/logout-button";
 
 const navItems = [
   {
+    title: "workspaces",
+    href: "/dashboard/workspaces",
+    icon: Icons.projectPlus,
+  },
+  {
     title: "Projects",
     href: "/dashboard/projects",
     icon: Icons.projectPlus,
@@ -49,7 +54,7 @@ export default function SidebarNav({ className, ...props }: SidebarNavProps) {
             "justify-start"
           )}
         >
-          {<item.icon className="mr-2 h-4 w-4 " />} {item.title}
+          {<item.icon className="mr-2 h-4 w-4" />} {item.title}
         </Link>
       ))}
 

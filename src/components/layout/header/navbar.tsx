@@ -1,6 +1,6 @@
 "use client";
 
-import { Session } from "@prisma/client";
+import type { Session } from "~/lib/server/auth/session";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,7 @@ export default function Navbar({
         <p>ChadNext</p>
       </Link>
       <div className="hidden items-center gap-12 lg:flex 2xl:gap-16">
-        <div className="space-x-4 text-center text-sm leading-loose text-muted-foreground md:text-left">
+        <div className="text-muted-foreground space-x-4 text-center text-sm leading-loose md:text-left">
           <Link
             href="/changelog"
             className="font-semibold hover:underline hover:underline-offset-4"
@@ -76,7 +76,7 @@ export default function Navbar({
         </SheetTrigger>
         <SheetContent>
           <div className="flex flex-col items-center space-y-10 py-10">
-            <div className="space-y-4 text-center text-sm leading-loose text-muted-foreground">
+            <div className="text-muted-foreground space-y-4 text-center text-sm leading-loose">
               <Link
                 href="/changelog"
                 className="block font-semibold hover:underline hover:underline-offset-4"
