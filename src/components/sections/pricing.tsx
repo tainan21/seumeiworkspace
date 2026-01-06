@@ -62,12 +62,12 @@ export default async function Pricing() {
 
   return (
     <section>
-      <div className="container space-y-8 py-12 md:py-16 lg:py-20">
+      <div className="space-y-8 py-12 md:py-16 lg:py-20">
         <div className="mx-auto flex max-w-2xl flex-col items-center space-y-4 text-center">
           <h2 className="font-heading text-4xl font-bold md:text-5xl">
             Pricing
           </h2>
-          <p className="max-w-md text-balance leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+          <p className="text-muted-foreground max-w-md leading-normal text-balance sm:text-lg sm:leading-7">
             Choose the plan that’s right for you and start building.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default async function Pricing() {
                 className={cn(
                   "relative flex flex-col transition duration-200 ease-in-out",
                   {
-                    "border-2 border-primary shadow-lg": plan.isPro,
+                    "border-primary border-2 shadow-lg": plan.isPro,
                     border: !plan.isPro,
                   }
                 )}
@@ -91,18 +91,18 @@ export default async function Pricing() {
                 <CardHeader>
                   <CardTitle>{plan.title}</CardTitle>
                   {isCurrentPlan && (
-                    <Badge variant="outline" className="absolute right-4 top-4">
+                    <Badge variant="outline" className="absolute top-4 right-4">
                       Current Plan
                     </Badge>
                   )}
                   <CardDescription>{plan.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
-                  <p className="mb-6 mt-2 flex items-baseline justify-center gap-x-2">
-                    <span className="text-5xl font-bold tracking-tight text-primary">
+                  <p className="mt-2 mb-6 flex items-baseline justify-center gap-x-2">
+                    <span className="text-primary text-5xl font-bold tracking-tight">
                       ${plan.price}
                     </span>
-                    <span className="text-sm font-semibold leading-6 tracking-wide text-muted-foreground">
+                    <span className="text-muted-foreground text-sm leading-6 font-semibold tracking-wide">
                       /month
                     </span>
                   </p>

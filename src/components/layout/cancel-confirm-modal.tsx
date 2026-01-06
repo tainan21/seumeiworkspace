@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
+import { useScopedI18n } from "~/locales/client";
 
 interface CancelConfirmModalProps {
   reset: () => void;
@@ -19,22 +22,25 @@ export default function CancelConfirmModal({
   reset,
   isDisabled,
 }: CancelConfirmModalProps) {
+  const tResetModal = useScopedI18n("settings.resetModal");
+  const tButtons = useScopedI18n("settings.buttons");
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="secondary" type="reset" disabled={isDisabled}>
-          Reset
+          {tButtons("reset")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Are you sure to discard the changes?
-          </AlertDialogTitle>
+          <AlertDialogTitle>{tResetModal("title")}</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={reset}>Yes</AlertDialogCancel>
-          <AlertDialogAction>No</AlertDialogAction>
+          <AlertDialogCancel onClick={reset}>
+            {tResetModal("confirm")}
+          </AlertDialogCancel>
+          <AlertDialogAction>{tResetModal("cancel")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

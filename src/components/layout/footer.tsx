@@ -8,7 +8,7 @@ import ThemeToggle from "../shared/theme-toggle";
 export default function Footer() {
   return (
     <footer className="md:py- relative z-10 w-full border-t py-4">
-      <div className="container flex items-center justify-between gap-4 md:h-14 md:flex-row">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 md:h-14 md:flex-row">
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2">
           <Image
             src="/chad-next.png"
@@ -17,7 +17,7 @@ export default function Footer() {
             height="24"
             className="hidden h-6 w-6 rounded-sm object-contain md:inline-block"
           />
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="text-muted-foreground text-center text-sm leading-loose md:text-left">
             Developed by{" "}
             <Link
               href={siteConfig().links.twitter}
@@ -30,7 +30,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className=" space-x-5">
+        <div className="space-x-5">
           <Suspense>
             <LocaleToggler />
           </Suspense>

@@ -18,6 +18,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/hooks/use-toast";
+import { useScopedI18n } from "~/locales/client";
 import { type User } from "~/lib/server/auth/session";
 import { settingsSchema, type SettingsValues } from "~/types";
 import {
@@ -33,10 +34,21 @@ const CancelConfirmModal = dynamic(
   () => import("~/components/layout/cancel-confirm-modal")
 );
 
+// Função auxiliar para obter iniciais do nome
+function getInitials(name: string | null | undefined): string {
+  if (!name) return "A";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name[0]?.toUpperCase() || "A";
+}
+
 export default function SettingsForm({ currentUser }: { currentUser: User }) {
   const oldImage = useRef(currentUser.picture ?? "");
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const t = useScopedI18n("settings");
 
   const form = useForm<SettingsValues>({
     resolver: zodResolver(settingsSchema),
@@ -72,10 +84,10 @@ export default function SettingsForm({ currentUser }: { currentUser: User }) {
           await removeUserOldImageFromCDN(data.picture, currentUser.picture);
         }
         await updateUser(currentUser.id, data);
-        toast({ title: "Updated successfully!" });
+        toast({ title: t("messages.updated") });
       } catch (error) {
         console.log(JSON.stringify(error));
-        toast({ title: "Something went wrong.", variant: "destructive" });
+        toast({ title: t("messages.error"), variant: "destructive" });
       }
     });
   });
@@ -107,15 +119,13 @@ export default function SettingsForm({ currentUser }: { currentUser: User }) {
           name="picture"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Picture</FormLabel>
-              <FormDescription>
-                Click on the avatar to upload new one.
-              </FormDescription>
+              <FormLabel>{t("picture.label")}</FormLabel>
+              <FormDescription>{t("picture.description")}</FormDescription>
               <FormControl>
                 <Avatar className="group relative h-28 w-28 rounded-full">
                   <AvatarImage src={field.value} alt={getValues().name ?? ""} />
                   <AvatarFallback className="text-xs">
-                    {getValues().name?.[0] ?? "A"}
+                    {getInitials(getValues().name)}
                   </AvatarFallback>
                   <ImageUploadModal onImageChange={field.onChange} />
                 </Avatar>
@@ -128,9 +138,9 @@ export default function SettingsForm({ currentUser }: { currentUser: User }) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{t("name.label")}</FormLabel>
               <FormControl>
-                <Input placeholder="Your name" {...field} />
+                <Input placeholder={t("name.placeholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -141,12 +151,12 @@ export default function SettingsForm({ currentUser }: { currentUser: User }) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("email.label")}</FormLabel>
               <FormControl>
                 <Input
                   className="bg-muted"
                   readOnly
-                  placeholder="Your email address"
+                  placeholder={t("email.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -162,10 +172,10 @@ export default function SettingsForm({ currentUser }: { currentUser: User }) {
             {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Updating...
+                {t("buttons.updating")}
               </>
             ) : (
-              "Update"
+              t("buttons.update")
             )}
           </Button>
         </div>

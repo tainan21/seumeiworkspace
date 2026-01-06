@@ -14,7 +14,7 @@ export default async function Header() {
 
   return (
     <header className="h-20 w-full">
-      <div className="container h-full">
+      <div className="h-full">
         <Navbar headerText={headerText} session={session!} />
       </div>
     </header>

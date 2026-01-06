@@ -15,7 +15,7 @@ import {
   type ThemeMode,
 } from "~/types/preferences/theme";
 import ThemeProvider from "~/components/shared/theme-provider";
-import "../globals.css";
+import "./globals.css";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { AnnouncementBanner } from "~/components/announcement-banner";
@@ -127,7 +127,7 @@ const fontSans = Inter({
 });
 
 const fontHeading = localFont({
-  src: "../../assets/fonts/CalSans-SemiBold.woff2",
+  src: "../assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
 });
 
@@ -171,13 +171,13 @@ export default async function RootLayout({
             themeMode={themeMode}
             themePreset={themePreset}
           >
-            <AnnouncementBanner />
-            {/* <Header /> */}
-            <main>
-              {children}
-              {loginDialog}
-            </main>
             <I18nProviderClient locale={locale}>
+              <AnnouncementBanner />
+              {/* <Header /> */}
+              <main>
+                {children}
+                {loginDialog}
+              </main>
               <Footer />
             </I18nProviderClient>
             <Toaster />

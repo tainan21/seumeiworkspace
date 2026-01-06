@@ -40,4 +40,43 @@ export default {
   notFound: {
     title: "Página não encontrada!",
   },
+  settings: {
+    title: "Configurações",
+    picture: {
+      label: "Foto",
+      description: "Clique no avatar para enviar um novo.",
+    },
+    name: {
+      label: "Nome",
+      placeholder: "Seu nome",
+    },
+    email: {
+      label: "E-mail",
+      placeholder: "Seu endereço de e-mail",
+    },
+    buttons: {
+      reset: "Reiniciar",
+      update: "Atualizar",
+      updating: "Atualizando...",
+    },
+    messages: {
+      updated: "Atualizado com sucesso!",
+      error: "Algo deu errado.",
+    },
+    resetModal: {
+      title: "Tem certeza que deseja descartar as alterações?",
+      confirm: "Sim",
+      cancel: "Não",
+    },
+    imageUpload: {
+      title: "Enviar Imagem",
+      dropOrClick: "Arraste ou clique aqui",
+      cancel: "Cancelar",
+      upload: "Enviar",
+      uploading: "Enviando...",
+      success: "Enviado com sucesso!",
+      error: "Erro ao enviar imagem!",
+      fileInfo: "Apenas arquivos de imagem são suportados e o tamanho máximo é",
+    },
+  },
 } as const;

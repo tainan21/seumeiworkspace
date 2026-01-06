@@ -9,22 +9,27 @@ import LogoutButton from "../shared/logout-button";
 
 const navItems = [
   {
-    title: "workspaces",
+    title: "Workspaces",
     href: "/dashboard/workspaces",
     icon: Icons.projectPlus,
   },
   {
-    title: "Projects",
+    title: "Projetos",
     href: "/dashboard/projects",
     icon: Icons.projectPlus,
   },
   {
-    title: "Billing",
+    title: "Apps",
+    href: "/apps/",
+    icon: Icons.projectPlus,
+  },
+  {
+    title: "Cobrança",
     href: "/dashboard/billing",
     icon: Icons.billing,
   },
   {
-    title: "Settings",
+    title: "Configurações",
     href: "/dashboard/settings",
     icon: Icons.settings,
   },

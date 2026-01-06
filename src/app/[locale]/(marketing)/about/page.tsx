@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="container min-h-screen py-8">
+    <div className="min-h-screen py-8">
       <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">About</h1>
       <p className="text-muted-foreground mt-2.5 mb-10 text-xl">
         Learn about the tech stack and inspiration behind Seumei.

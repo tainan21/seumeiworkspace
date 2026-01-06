@@ -1,3 +1,5 @@
+"use client";
+
 import { useDropzone } from "@uploadthing/react";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
@@ -16,6 +18,7 @@ import {
 } from "~/components/ui/dialog";
 import { toast } from "~/hooks/use-toast";
 import { useUploadThing } from "~/lib/client/uploadthing";
+import { useScopedI18n } from "~/locales/client";
 import Icons from "../shared/icons";
 import { Button } from "../ui/button";
 
@@ -27,6 +30,7 @@ export default function ImageUploadModal({
   const [files, setFiles] = useState<File[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const t = useScopedI18n("settings.imageUpload");
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
@@ -41,7 +45,7 @@ export default function ImageUploadModal({
         if (res) {
           onImageChange(res[0].url);
           toast({
-            title: "Uploaded successfully!",
+            title: t("success"),
           });
           setShowModal(false);
         }
@@ -49,7 +53,7 @@ export default function ImageUploadModal({
       onUploadError: (e) => {
         console.log(e);
         toast({
-          title: "Error occurred while uploading!",
+          title: t("error"),
           variant: "destructive",
         });
       },
@@ -84,7 +88,7 @@ export default function ImageUploadModal({
   return (
     <Dialog open={showModal} onOpenChange={setShowModal}>
       <DialogTrigger asChild>
-        <div className="absolute left-0 top-0 flex h-28 w-28 cursor-pointer items-center justify-center rounded-full bg-primary/40 text-white opacity-0 group-hover:opacity-100 dark:bg-secondary/40">
+        <div className="bg-primary/40 dark:bg-secondary/40 absolute top-0 left-0 flex h-28 w-28 cursor-pointer items-center justify-center rounded-full text-white opacity-0 group-hover:opacity-100">
           <Button
             type="button"
             size="sm"
@@ -97,7 +101,7 @@ export default function ImageUploadModal({
       </DialogTrigger>
       <DialogContent className="max-w-[450px]">
         <DialogHeader>
-          <DialogTitle>Image Upload</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
         <div>
           {preview ? (
@@ -115,19 +119,19 @@ export default function ImageUploadModal({
                 <Button
                   disabled={isUploading}
                   onClick={handleCancel}
-                  className="mr-10 text-destructive hover:text-destructive"
+                  className="text-destructive hover:text-destructive mr-10"
                   variant="outline"
                 >
-                  Cancel
+                  {t("cancel")}
                 </Button>
                 <Button disabled={isUploading} onClick={handleUpload}>
                   {isUploading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Uploading...
+                      {t("uploading")}
                     </>
                   ) : (
-                    "Upload"
+                    t("upload")
                   )}
                 </Button>
               </div>
@@ -142,9 +146,7 @@ export default function ImageUploadModal({
                 <div className="flex cursor-pointer flex-col items-center gap-y-2">
                   <Icons.download size={40} />
                 </div>
-                <p className="text-sm">
-                  Drop <em>or</em> Click Here
-                </p>
+                <p className="text-sm">{t("dropOrClick")}</p>
               </div>
             </div>
           )}
@@ -152,8 +154,8 @@ export default function ImageUploadModal({
         <DialogFooter>
           <div className="text-right text-xs leading-normal">
             <p>
-              <span className="text-sm text-destructive">*</span>
-              {`Only Image files are supported and size limit up to ${routeConfig?.image?.maxFileSize}.`}
+              <span className="text-destructive text-sm">*</span>
+              {`${t("fileInfo")} ${routeConfig?.image?.maxFileSize}.`}
             </p>
           </div>
         </DialogFooter>

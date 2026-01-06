@@ -36,4 +36,43 @@ export default {
   notFound: {
     title: "Page Not Found!",
   },
+  settings: {
+    title: "Settings",
+    picture: {
+      label: "Picture",
+      description: "Click on the avatar to upload a new one.",
+    },
+    name: {
+      label: "Name",
+      placeholder: "Your name",
+    },
+    email: {
+      label: "Email",
+      placeholder: "Your email address",
+    },
+    buttons: {
+      reset: "Reset",
+      update: "Update",
+      updating: "Updating...",
+    },
+    messages: {
+      updated: "Updated successfully!",
+      error: "Something went wrong.",
+    },
+    resetModal: {
+      title: "Are you sure you want to discard the changes?",
+      confirm: "Yes",
+      cancel: "No",
+    },
+    imageUpload: {
+      title: "Image Upload",
+      dropOrClick: "Drop or Click Here",
+      cancel: "Cancel",
+      upload: "Upload",
+      uploading: "Uploading...",
+      success: "Uploaded successfully!",
+      error: "Error occurred while uploading!",
+      fileInfo: "Only Image files are supported and size limit up to",
+    },
+  },
 } as const;

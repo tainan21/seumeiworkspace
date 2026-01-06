@@ -101,7 +101,7 @@ export default function LandingPage() {
       {/* Header */}
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 border-b backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Logo size="md" />
+          <Logo size="sm" />
 
           <nav className="hidden items-center gap-6 md:flex">
             <Link
@@ -301,8 +301,14 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        {/* Bento Pricing Section */}
+        <section className="border-t py-24">
+          <div className="mx-auto max-w-6xl px-4">
+            <BentoPricing />
+          </div>
+        </section>
       </main>
-      <BentoPricing />
       {/* Footer */}
       <footer className="border-t py-12">
         <div className="mx-auto max-w-6xl px-4">

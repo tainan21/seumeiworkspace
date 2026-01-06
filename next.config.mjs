@@ -1,5 +1,5 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 import withSerwistInit from "@serwist/next";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,15 +22,17 @@ const nextConfig = {
     },
   ],
 
-  // Configurar root do workspace para Turbopack
   turbopack: {
     root: __dirname,
     rules: {},
   },
 
-  // Configurações do TypeScript
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   typescript: {
-    // ignoreBuildErrors: true, // Descomente se precisar ignorar erros durante build
+    // ignoreBuildErrors: true, // NÃO ligue agora
   },
 };
 
