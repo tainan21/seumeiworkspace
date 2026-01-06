@@ -3,6 +3,7 @@ onlyBuiltDependencies:
   - '@prisma/engines'
   - esbuild
   - lefthook
+  - msgpackr-extract
   - prisma
   - sharp
   - unrs-resolver
