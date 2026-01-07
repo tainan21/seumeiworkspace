@@ -46,13 +46,23 @@ export async function createProject(payload: Payload) {
     }
 
     // Criar projeto
-    await prisma.project.create({
+    const project = await prisma.project.create({
       data: {
         name: payload.name.trim(),
         domain: payload.domain.trim(),
         userId: user.id,
       },
     });
+
+    // TODO: Registrar activity log quando workspace estiver disponível
+    // await ActivityLogger.log({
+    //   workspaceId: 'workspace_id_aqui',
+    //   userId: user.id,
+    //   action: 'PROJECT_CREATED',
+    //   entityType: 'PROJECT',
+    //   entityId: project.id,
+    //   metadata: { projectName: project.name, domain: project.domain },
+    // });
 
     revalidatePath(`/dashboard/projects`);
   } catch (error) {
@@ -181,7 +191,7 @@ export async function updateProjectById(id: string, payload: Payload) {
       throw new Error("Domínio do projeto é obrigatório");
     }
 
-    await prisma.project.update({
+    const project = await prisma.project.update({
       where: {
         id,
         userId: user.id,
@@ -191,6 +201,16 @@ export async function updateProjectById(id: string, payload: Payload) {
         domain: payload.domain.trim(),
       },
     });
+
+    // TODO: Registrar activity log quando workspace estiver disponível
+    // await ActivityLogger.log({
+    //   workspaceId: 'workspace_id_aqui',
+    //   userId: user.id,
+    //   action: 'PROJECT_UPDATED',
+    //   entityType: 'PROJECT',
+    //   entityId: project.id,
+    //   metadata: { projectName: project.name, domain: project.domain },
+    // });
 
     revalidatePath(`/dashboard/projects`);
   } catch (error) {
@@ -220,12 +240,29 @@ export async function deleteProjectById(id: string) {
       throw new Error("Usuário não autenticado");
     }
 
+    // Buscar projeto antes de deletar para o log
+    const project = await prisma.project.findFirst({
+      where: { id, userId: user.id },
+    });
+
     await prisma.project.delete({
       where: {
         id,
         userId: user.id,
       },
     });
+
+    // TODO: Registrar activity log quando workspace estiver disponível
+    // if (project) {
+    //   await ActivityLogger.log({
+    //     workspaceId: 'workspace_id_aqui',
+    //     userId: user.id,
+    //     action: 'PROJECT_DELETED',
+    //     entityType: 'PROJECT',
+    //     entityId: id,
+    //     metadata: { projectName: project.name },
+    //   });
+    // }
 
     revalidatePath(`/dashboard/projects`);
     redirect("/dashboard/projects");

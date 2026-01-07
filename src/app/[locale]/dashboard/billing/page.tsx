@@ -24,7 +24,7 @@ export default async function Billing() {
           <AlertTriangleIcon className="h-5 w-5 shrink-0" />
           <div>
             <AlertDescription>
-              <strong>ChadNext</strong> just demonstrates how to use Stripe in
+              <strong>Seumei</strong> just demonstrates how to use Stripe in
               Next.js App router. Please use test cards from{" "}
               <a
                 href="https://stripe.com/docs/testing#cards"

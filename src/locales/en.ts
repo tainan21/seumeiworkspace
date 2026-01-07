@@ -31,7 +31,7 @@ export default {
       stripe: "Receive and process payments with Stripe.",
       vercel: "Production and Preview deployments with Vercel.",
     },
-    aboutMd: "ChadNext also includes Changelog & About page built using",
+    aboutMd: "Seumei also includes Changelog & About page built using",
   },
   notFound: {
     title: "Page Not Found!",

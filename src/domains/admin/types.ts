@@ -159,3 +159,64 @@ export interface WorkspaceDetails {
     enterprises: number;
   };
 }
+
+/**
+ * Activity Log Types para Admin Global
+ */
+
+/**
+ * Filtros para listagem de activity logs (admin)
+ */
+export interface AdminActivityFilters {
+  workspaceId?: string;
+  action?: string;
+  userId?: string;
+  dateFrom?: Date;
+  dateTo?: Date;
+  limit?: number;
+  offset?: number;
+}
+
+/**
+ * Activity log com informações completas (admin view)
+ */
+export interface AdminActivityLog {
+  id: string;
+  workspaceId: string | null;
+  workspaceName?: string;
+  userId: string | null;
+  userName?: string | null;
+  userEmail: string | null;
+  action: string;
+  entityType: string;
+  entityId: string | null;
+  metadata: any;
+  createdAt: Date;
+}
+
+/**
+ * Resposta paginada de activity logs (admin)
+ */
+export interface AdminActivityLogsResponse {
+  logs: AdminActivityLog[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
+/**
+ * Estatísticas globais de activity logs
+ */
+export interface AdminActivityStats {
+  totalLogs: number;
+  logsToday: number;
+  logsThisWeek: number;
+  logsThisMonth: number;
+  logsByType: Record<string, number>;
+  logsByDay: Array<{ date: string; count: number }>;
+  topWorkspaces: Array<{ 
+    workspaceId: string; 
+    workspaceName: string; 
+    count: number 
+  }>;
+}

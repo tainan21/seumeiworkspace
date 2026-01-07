@@ -27,3 +27,13 @@ export class ProjectLimitError extends Error {
     this.name = "ProjectLimitError";
   }
 }
+
+/**
+ * Erro customizado para validação de workspace
+ */
+export class WorkspaceValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "WorkspaceValidationError";
+  }
+}

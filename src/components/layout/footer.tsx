@@ -4,19 +4,13 @@ import { Suspense } from "react";
 import { siteConfig } from "~/config/site";
 import LocaleToggler from "../shared/locale-toggler";
 import ThemeToggle from "../shared/theme-toggle";
-
+import {Logo} from "~/components/seumei/logo";
 export default function Footer() {
   return (
     <footer className="md:py- relative z-10 w-full border-t py-4">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 md:h-14 md:flex-row">
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2">
-          <Image
-            src="/chad-next.png"
-            alt="ChadNext logo"
-            width="24"
-            height="24"
-            className="hidden h-6 w-6 rounded-sm object-contain md:inline-block"
-          />
+          <Logo size="sm" />
           <p className="text-muted-foreground text-center text-sm leading-loose md:text-left">
             Developed by{" "}
             <Link
@@ -25,7 +19,7 @@ export default function Footer() {
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              Moinul Moin
+              Matriz
             </Link>
           </p>
         </div>

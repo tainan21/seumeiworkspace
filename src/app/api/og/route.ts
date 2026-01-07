@@ -12,9 +12,9 @@ export async function GET(request: Request) {
   try {
     return new ImageResponse(
       RenderIMGEl({
-        logo: siteUrl + "/chad-next.png",
+        logo: siteUrl + "/seumei.png",
         locale: locale as string,
-        image: siteUrl + "/chadnext-homepage.png",
+        image: siteUrl + "/empresa-homepage.png",
       }),
       {
         width: 1200,

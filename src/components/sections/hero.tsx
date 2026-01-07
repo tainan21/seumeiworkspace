@@ -9,7 +9,7 @@ import { getScopedI18n } from "~/locales/server";
 export default async function Hero() {
   const scopedT = await getScopedI18n("hero");
   const { stargazers_count: stars } = await fetch(
-    "https://api.github.com/repos/moinulmoin/chadnext",
+    "#",
     {
       next: { revalidate: 3600 },
     }
@@ -20,7 +20,7 @@ export default async function Hero() {
       <div className="container flex w-full flex-col items-center justify-center space-y-20 py-16 md:py-20 lg:py-24 xl:py-28">
         <div className="mx-auto w-full max-w-2xl">
           <a
-            href="https://twitter.com/immoinulmoin/status/1661645764697919489"
+            href="#"
             title="Follow Updates"
             target="_blank"
             rel="noreferrer"
@@ -28,7 +28,7 @@ export default async function Hero() {
           >
             <Icons.twitter className="h-5 w-5 text-blue-700" />
             <p className="text-sm font-semibold text-blue-700">
-              {scopedT("top")} ChadNext
+              {scopedT("top")} Seumei.ai
             </p>
           </a>
           <h1 className="text-balance bg-gradient-to-br from-gray-900 via-gray-800 to-gray-400 bg-clip-text text-center font-heading text-[40px] font-bold leading-tight tracking-[-0.02em] text-transparent drop-shadow-sm duration-300 ease-linear [word-spacing:theme(spacing.1)] dark:bg-gradient-to-br dark:from-gray-100 dark:to-gray-900 md:text-7xl md:leading-[5rem]">
@@ -43,7 +43,7 @@ export default async function Hero() {
             </Link>
             <Link
               className={buttonVariants({ variant: "outline" }) + " gap-x-2"}
-              href="https://github.com/moinulmoin/chadnext"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
             >

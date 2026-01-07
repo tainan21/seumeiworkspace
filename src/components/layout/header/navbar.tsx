@@ -9,6 +9,7 @@ import LogoutButton from "~/components/shared/logout-button";
 import { buttonVariants } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { cn } from "~/lib/utils";
+import { Logo } from "~/components/seumei/logo";
 export default function Navbar({
   session,
   headerText,
@@ -26,14 +27,8 @@ export default function Navbar({
   return (
     <nav className="flex h-full items-center justify-between">
       <Link href="/" className="flex items-center text-2xl font-bold">
-        <Image
-          src="/chad-next.png"
-          alt="ChadNext logo"
-          width="30"
-          height="30"
-          className="mr-2 rounded-sm object-contain"
-        />
-        <p>ChadNext</p>
+        <Logo size="sm" />
+        <p>Seumei</p>
       </Link>
       <div className="hidden items-center gap-12 lg:flex 2xl:gap-16">
         <div className="text-muted-foreground space-x-4 text-center text-sm leading-loose md:text-left">

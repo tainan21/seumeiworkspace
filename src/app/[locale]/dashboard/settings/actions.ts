@@ -5,12 +5,22 @@ import { prisma } from "~/lib/server/db";
 import { utapi } from "~/lib/server/upload";
 import { getImageKeyFromUrl, isOurCdnUrl } from "~/lib/utils";
 import { type payload } from "~/types";
+// import { ActivityLogger } from "~/lib/server/activity-logger";
 
 export const updateUser = async (id: string, payload: payload) => {
   await prisma.user.update({
     where: { id },
     data: { ...payload },
   });
+
+  // TODO: Registrar activity log quando workspace estiver disponível
+  // await ActivityLogger.log({
+  //   workspaceId: 'workspace_id_aqui',
+  //   userId: id,
+  //   action: 'SETTINGS_UPDATED',
+  //   entityType: 'SETTINGS',
+  //   metadata: { updatedFields: Object.keys(payload) },
+  // });
 
   revalidatePath("/dashboard/settings");
 };
