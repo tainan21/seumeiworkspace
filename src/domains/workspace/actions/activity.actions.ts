@@ -174,12 +174,12 @@ export async function getActivityLogs(
         entityType: log.entityType,
         entityId: log.entityId,
         userId: log.userId || "",
-        userEmail: log.userEmail || user?.email || undefined,
+        userEmail: log.userEmail || (user as { email?: string })?.email || undefined,
         workspaceId: log.workspaceId || "",
         createdAt: log.createdAt,
         metadata: log.metadata,
       },
-      user?.name || undefined
+      (user as { name?: string })?.name || undefined
     );
   });
 }
@@ -246,12 +246,12 @@ export async function getActivityLogsAdmin(
         entityType: log.entityType,
         entityId: log.entityId,
         userId: log.userId || "",
-        userEmail: log.userEmail || user?.email || undefined,
+        userEmail: log.userEmail || (user as { email?: string })?.email || undefined,
         workspaceId: log.workspaceId || "",
         createdAt: log.createdAt,
         metadata: log.metadata,
       },
-      user?.name || undefined
+      (user as { name?: string })?.name || undefined
     );
   });
 }

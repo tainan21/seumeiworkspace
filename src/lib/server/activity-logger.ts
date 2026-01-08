@@ -41,7 +41,8 @@ export class ActivityLogger {
     metadata?: Record<string, any>;
   }): Promise<void> {
     try {
-      await createActivityLog(data);
+      // Corrige tipagem: faz cast explícito para o tipo esperado por createActivityLog
+      await createActivityLog(data as any);
     } catch (error) {
       // Log silenciosamente - não deve quebrar a operação principal
       console.error("[ActivityLogger] Failed to log activity:", {
