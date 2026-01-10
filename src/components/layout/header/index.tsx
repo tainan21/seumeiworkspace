@@ -1,6 +1,6 @@
 import { getCurrentSession } from "~/lib/server/auth/session";
 import { getScopedI18n } from "~/locales/server";
-import Navbar from "./navbar";
+import Navbar from "./navbar2";
 
 export default async function Header() {
   const { session } = await getCurrentSession();

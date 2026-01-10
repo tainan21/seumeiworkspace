@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Logo } from "~/components/seumei/logo";
-import Pricing from "~/components/sections/pricing";
+import { PricingSection } from "~/components/sections/pricing-section";
 import { BentoPricing } from "~/components/layout/bentoPrice";
 import {
   ArrowRight,
@@ -182,7 +182,7 @@ export default function LandingPage() {
           <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
         </section>
 
-        <Pricing />
+        <PricingSection />
 
         {/* Features Section */}
         <section id="features" className="border-t py-24">

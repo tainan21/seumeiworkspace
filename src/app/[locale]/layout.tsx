@@ -1,30 +1,19 @@
-import type { ReactNode } from "react";
-
 import type { Metadata } from "next";
-import { cn } from "~/lib/utils";
-import { I18nProviderClient } from "~/locales/client";
-import { Inter } from "next/font/google";
-import { Toaster } from "~/components/ui/sonner";
-import { APP_CONFIG } from "~/config/app-config";
 import { getPreference } from "~/lib/server/server-actions";
-import { PreferencesStoreProvider } from "~/stores/preferences/preferences-provider";
 import {
   THEME_MODE_VALUES,
   THEME_PRESET_VALUES,
   type ThemePreset,
   type ThemeMode,
 } from "~/types/preferences/theme";
-import ThemeProvider from "~/components/shared/theme-provider";
-import "../globals.css";
-import localFont from "next/font/local";
-import Script from "next/script";
+import { Toaster } from "~/components/ui/sonner";
 import { AnnouncementBanner } from "~/components/announcement-banner";
 import Footer from "~/components/layout/footer";
-import Header from "~/components/layout/header";
 import { siteConfig, siteUrl } from "~/config/site";
+import { AppProviders } from "./app-providers";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -101,6 +90,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: "/",
       languages: {
+        pt: "/pt",
         en: "/en",
         fr: "/fr",
       },
@@ -121,17 +111,7 @@ export const viewport = {
   ],
 };
 
-const fontSans = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const fontHeading = localFont({
-  src: "../../assets/fonts/CalSans-SemiBold.woff2",
-  variable: "--font-heading",
-});
-
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   loginDialog,
   params,
@@ -153,37 +133,25 @@ export default async function RootLayout({
   );
 
   return (
-    <html
-      lang={locale}
-      className={themeMode === "dark" ? "dark" : ""}
-      data-theme-preset={themePreset}
-      suppressHydrationWarning
-    >
-      <body
-        className={cn(
-          "min-h-screen font-sans antialiased",
-          fontSans.variable,
-          fontHeading.variable
-        )}
+    <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.setAttribute('data-theme-preset', '${themePreset}');`,
+        }}
+      />
+      <AppProviders
+        locale={locale}
+        themeMode={themeMode}
+        themePreset={themePreset}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <PreferencesStoreProvider
-            themeMode={themeMode}
-            themePreset={themePreset}
-          >
-            <AnnouncementBanner />
-            {/* <Header /> */}
-            <main>
-              {children}
-              {loginDialog}
-            </main>
-            <I18nProviderClient locale={locale}>
-              <Footer />
-            </I18nProviderClient>
-            <Toaster />
-          </PreferencesStoreProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+        <AnnouncementBanner />
+        <main>
+          {children}
+          {loginDialog}
+        </main>
+        <Footer />
+        <Toaster />
+      </AppProviders>
+    </>
   );
 }

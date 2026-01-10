@@ -12,11 +12,15 @@ import { Button } from "../ui/button";
 
 const locales = [
   {
+    name: "Português",
+    value: "pt",
+  },
+  {
     name: "English",
     value: "en",
   },
   {
-    name: "French",
+    name: "Français",
     value: "fr",
   },
 ];

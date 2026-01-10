@@ -1,81 +1,71 @@
 /**
  * ActivityLogger - Helper para logging automático de atividades
- * 
- * Adapter que facilita criar logs em outras partes do sistema
- * Falhas são silenciosas para não quebrar a operação principal
+ *
+ * Adapter de boundary para o domínio de ActivityLog.
+ * ❗ Falhas são silenciosas por design: logging nunca deve quebrar o fluxo principal.
+ *
+ * ⚠️ NOTA DE DÍVIDA TÉCNICA:
+ * O `as any` é TEMPORÁRIO e existe apenas para desacoplar este adapter
+ * da tipagem interna do domínio `createActivityLog`.
  */
 
 import { createActivityLog } from "~/domains/workspace/actions/activity.actions";
 
+/**
+ * Shape mínimo aceito pelo logger.
+ * NÃO é o tipo do domínio — é o contrato do adapter.
+ */
+export type ActivityLogPayload = {
+  workspaceId: string;
+  userId: string;
+  action: string;
+  entityType: string;
+  entityId?: string;
+  metadata?: Record<string, unknown>;
+};
+
 export class ActivityLogger {
   /**
-   * Registra uma atividade no sistema
-   * 
-   * ⚠️ IMPORTANTE: Falhas são silenciosas (apenas console.error)
-   * O log não deve quebrar a operação principal do sistema
-   * 
-   * @param data - Dados da atividade
-   * @param data.workspaceId - ID do workspace (obrigatório)
-   * @param data.userId - ID do usuário que realizou a ação (obrigatório)
-   * @param data.action - Tipo de ação (ex: PROJECT_CREATED)
-   * @param data.entityType - Tipo de entidade (ex: PROJECT)
-   * @param data.entityId - ID da entidade (opcional)
-   * @param data.metadata - Dados adicionais (opcional)
-   * 
-   * @example
-   * await ActivityLogger.log({
-   *   workspaceId: 'ws_123',
-   *   userId: 'user_456',
-   *   action: 'PROJECT_CREATED',
-   *   entityType: 'PROJECT',
-   *   entityId: 'proj_789',
-   *   metadata: { projectName: 'Meu Projeto' },
-   * });
+   * Registra uma atividade no sistema.
+   * Falhas são silenciosas e não interrompem a operação principal.
    */
-  static async log(data: {
-    workspaceId: string;
-    userId: string;
-    action: string;
-    entityType: string;
-    entityId?: string;
-    metadata?: Record<string, any>;
-  }): Promise<void> {
+  static async log(payload: ActivityLogPayload): Promise<void> {
     try {
-      // Corrige tipagem: faz cast explícito para o tipo esperado por createActivityLog
-      await createActivityLog(data as any);
+      /**
+       * Boundary call:
+       * - Não validamos profundamente aqui
+       * - Não propagamos erro
+       * - Não acoplamos este adapter ao domínio
+       */
+      await createActivityLog(payload as any); // ← TEMPORÁRIO
     } catch (error) {
-      // Log silenciosamente - não deve quebrar a operação principal
-      console.error("[ActivityLogger] Failed to log activity:", {
-        action: data.action,
-        entityType: data.entityType,
-        error: error instanceof Error ? error.message : String(error),
+      /**
+       * Logging defensivo: nunca assume shape do erro
+       */
+      console.error("[ActivityLogger] Failed to log activity", {
+        action: payload.action,
+        entityType: payload.entityType,
+        workspaceId: payload.workspaceId,
+        error: error instanceof Error ? error.message : error,
       });
-      // NÃO re-throw - silencioso
     }
   }
 
   /**
-   * Registra múltiplas atividades em batch
-   * Útil quando uma operação gera múltiplos logs
-   * 
-   * @param activities - Array de atividades para registrar
+   * Registra múltiplas atividades.
+   *
+   * ⚠️ Fire-and-forget intencional:
+   * - Não bloqueia o fluxo
+   * - Falhas são capturadas internamente
    */
-  static async logBatch(
-    activities: Array<{
-      workspaceId: string;
-      userId: string;
-      action: string;
-      entityType: string;
-      entityId?: string;
-      metadata?: Record<string, any>;
-    }>
-  ): Promise<void> {
-    // Executar em paralelo, mas não aguardar
-    Promise.all(activities.map((activity) => this.log(activity))).catch(
-      (error) => {
-        console.error("[ActivityLogger] Failed to log batch:", error);
-      }
-    );
+  static logBatch(activities: ActivityLogPayload[]): void {
+    void Promise.all(
+      activities.map((activity) => ActivityLogger.log(activity))
+    ).catch((error) => {
+      console.error("[ActivityLogger] Failed to log batch", {
+        count: activities.length,
+        error: error instanceof Error ? error.message : error,
+      });
+    });
   }
 }
-

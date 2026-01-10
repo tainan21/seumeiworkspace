@@ -2,8 +2,8 @@ import { createI18nMiddleware } from "next-international/middleware";
 import { type NextRequest } from "next/server";
 
 const I18nMiddleware = createI18nMiddleware({
-  locales: ["en", "fr"],
-  defaultLocale: "en",
+  locales: ["pt", "en", "fr"],
+  defaultLocale: "pt",
 });
 
 export function proxy(request: NextRequest) {
