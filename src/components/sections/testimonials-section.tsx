@@ -9,8 +9,9 @@ export function TestimonialsSection() {
   const tScoped = useScopedI18n("testimonials")
   
   // Acessa os items de forma segura
-  const testimonialsData = (t as any)("testimonials.items") as Array<{ text: string; name: string; role: string }> | undefined
-  const testimonials = (Array.isArray(testimonialsData) ? testimonialsData : []).map((item, index) => ({
+  const testimonialsData = (t as any)("testimonials.items")
+  const testimonialsArray = Array.isArray(testimonialsData) ? testimonialsData : []
+  const testimonials = testimonialsArray.map((item: any, index: number) => ({
     text: item.text,
     name: item.name,
     role: item.role,

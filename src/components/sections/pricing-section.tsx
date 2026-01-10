@@ -9,8 +9,9 @@ export function PricingSection() {
   const tScoped = useScopedI18n("pricing")
   
   // Acessa os plans de forma segura
-  const plansData = (t as any)("pricing.plans") as Array<{ name: string; description: string; price: string; period: string; features: string[]; cta: string }> | undefined
-  const plans = (Array.isArray(plansData) ? plansData : []).map((plan, index) => ({
+  const plansData = (t as any)("pricing.plans")
+  const plansArray = Array.isArray(plansData) ? plansData : []
+  const plans = plansArray.map((plan: any, index: number) => ({
     ...plan,
     highlighted: index === 1, // Pro plan is highlighted
   }))
