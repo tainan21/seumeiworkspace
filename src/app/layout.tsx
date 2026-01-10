@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "~/lib/utils";
+import { I18nProviderWrapper } from "~/components/providers/i18n-provider-wrapper";
 import "./globals.css";
 
 const fontSans = Inter({
@@ -28,7 +29,9 @@ export default function RootLayout({
           fontHeading.variable
         )}
       >
-        {children}
+        <I18nProviderWrapper locale="pt">
+          {children}
+        </I18nProviderWrapper>
       </body>
     </html>
   );
