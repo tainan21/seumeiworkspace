@@ -1,0 +1,755 @@
+﻿scripts/seed-database.ts(21,7): error TS2561: Object literal may only specify known properties, but 'emailVerified' does not exist in type '(Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput)'. Did you mean to write 'emailVerifiedAt'?
+src/__tests__/domains/company/validate-identifier.test.ts(1,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/__tests__/domains/workspace/workspace.service.test.ts(1,54): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/__tests__/setup.ts(6,13): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+src/app/[locale]/[workspace]/apps/page.tsx(35,33): error TS2551: Property 'feature' does not exist on type '{ workspaceId: string; id: string; createdAt: Date; updatedAt: Date; expiresAt: Date | null; featureId: string; source: FeatureSource; enabled: boolean; enabledAt: Date | null; config: JsonValue; }'. Did you mean 'featureId'?
+src/app/[locale]/[workspace]/apps/page.tsx(49,27): error TS2339: Property 'canWrite' does not exist on type 'WorkspaceContext'.
+src/app/[locale]/[workspace]/projects/new/page.tsx(28,16): error TS2339: Property 'canWrite' does not exist on type 'WorkspaceContext'.
+src/app/[locale]/[workspace]/projects/page.tsx(39,19): error TS2339: Property 'canWrite' does not exist on type 'WorkspaceContext'.
+src/app/[locale]/[workspace]/projects/page.tsx(43,17): error TS2322: Type '{ label: string; icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>; href: string; } | undefined' is not assignable to type '{ label: string; onClick: () => void; icon?: LucideIcon | undefined; } | undefined'.
+  Object literal may only specify known properties, and 'href' does not exist in type '{ label: string; onClick: () => void; icon?: LucideIcon | undefined; }'.
+src/app/[locale]/[workspace]/projects/page.tsx(55,21): error TS2339: Property 'canWrite' does not exist on type 'WorkspaceContext'.
+src/app/[locale]/[workspace]/projects/page.tsx(58,19): error TS2322: Type '{ label: string; href: string; } | undefined' is not assignable to type '{ label: string; onClick: () => void; } | undefined'.
+  Object literal may only specify known properties, and 'href' does not exist in type '{ label: string; onClick: () => void; }'.
+src/app/[locale]/_components/BottomFour/index.tsx(21,15): error TS4104: The type 'readonly ["Organiza├º├úo", "detalhada"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(22,15): error TS4104: The type 'readonly ["Organiza├º├úo em n├¡vel de cliente e projeto", "Duplique dados de produ├º├úo para testes", "Reproduza problemas de clientes duplicando dados espec├¡ficos"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(33,17): error TS4104: The type 'readonly ["Dashboard", "instant├óneo"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(34,17): error TS4104: The type 'readonly ["Acompanhe o crescimento de clientes, transa├º├Áes e consultas", "Mergulhe em m├®tricas por cliente", "Gerencie perfis de usu├írios para cada cliente"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(71,15): error TS4104: The type 'readonly ["Atualiza├º├Áes autom├íticas", "entre clientes"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(72,15): error TS4104: The type 'readonly ["Execute mudan├ºas uma vez em todos os clientes", "Atualiza├º├Áes s├úo totalmente at├┤micas", "Integra com ferramentas existentes"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(149,15): error TS4104: The type 'readonly ["Backups autom├íticos", "para restaura├º├úo instant├ónea"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/BottomFour/index.tsx(150,15): error TS4104: The type 'readonly ["Execute mudan├ºas uma vez em todos os clientes", "Atualiza├º├Áes s├úo totalmente at├┤micas", "Integra com ferramentas existentes"]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+src/app/[locale]/_components/common/Container.tsx(1,10): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/app/[locale]/_components/common/Container.tsx(2,16): error TS1484: 'Background' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/app/[locale]/_components/common/CopyToClipboard/index.tsx(33,20): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(timeout: string | number | Timeout | undefined): void', gave the following error.
+    Argument of type 'Timer | undefined' is not assignable to parameter of type 'string | number | Timeout | undefined'.
+      Type 'Timer' is not assignable to type 'string | number | Timeout | undefined'.
+        Type 'Timer' is missing the following properties from type 'Timeout': close, _onTimeout, [Symbol.dispose]
+  Overload 2 of 3, '(id: number | undefined): void', gave the following error.
+    Argument of type 'Timer | undefined' is not assignable to parameter of type 'number | undefined'.
+      Type 'Timer' is not assignable to type 'number'.
+  Overload 3 of 3, '(id: number | undefined): void', gave the following error.
+    Argument of type 'Timer | undefined' is not assignable to parameter of type 'number | undefined'.
+      Type 'Timer' is not assignable to type 'number'.
+src/app/[locale]/_components/common/GradientButton.tsx(2,10): error TS1484: 'MouseEventHandler' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/app/[locale]/_components/common/useIntersection.ts(2,10): error TS1484: 'RefObject' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/app/[locale]/_components/Virtualization/Collider.tsx(2,29): error TS2307: Cannot find module '~/app/_components/common/useIntersection' or its corresponding type declarations.
+src/app/[locale]/dashboard/workspaces/[workspaceId]/editable-details.tsx(19,10): error TS2614: Module '"../create-project-modal"' has no exported member 'projectSchema'. Did you mean to use 'import projectSchema from "../create-project-modal"' instead?
+src/app/[locale]/dashboard/workspaces/[workspaceId]/editable-details.tsx(19,30): error TS2614: Module '"../create-project-modal"' has no exported member 'ProjectFormValues'. Did you mean to use 'import ProjectFormValues from "../create-project-modal"' instead?
+src/app/[locale]/dashboard/workspaces/create-project-modal.tsx(63,30): error TS2339: Property 'workspaceSlug' does not exist on type 'ActionResult<{ workspaceSlug: string; workspaceId: string; }>'.
+  Property 'workspaceSlug' does not exist on type '{ success: false; error: string; }'.
+src/app/[locale]/Onboarding/layout.tsx(1,10): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/admin/audit-logs.tsx(36,9): error TS2353: Object literal may only specify known properties, and 'search' does not exist in type 'AuditLogFilters'.
+src/components/onboarding/onboarding-wrapper.tsx(3,37): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/onboarding/primitives/menu-builder.tsx(11,3): error TS1484: 'DragEndEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/onboarding/steps/actions.ts(63,31): error TS2339: Property 'workspaceSlug' does not exist on type '{ success: true; data: { workspaceSlug: string; workspaceId: string; }; }'.
+src/components/onboarding/steps/actions.ts(64,29): error TS2339: Property 'workspaceId' does not exist on type '{ success: true; data: { workspaceSlug: string; workspaceId: string; }; }'.
+src/components/onboarding/steps/custom-builder-step.tsx(76,36): error TS2322: Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+  Types of property 'children' are incompatible.
+    Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+      Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+        Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+          Types of property 'type' are incompatible.
+            Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+              Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/custom-builder-step.tsx(76,50): error TS2322: Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+  Types of property 'children' are incompatible.
+    Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+      Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+        Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+          Types of property 'type' are incompatible.
+            Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+              Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/custom-builder-step.tsx(81,19): error TS2322: Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }[]'.
+  Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+    Types of property 'children' are incompatible.
+      Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+        Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+          Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+            Types of property 'type' are incompatible.
+              Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+                Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/custom-builder-step.tsx(87,19): error TS2322: Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }[]'.
+  Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+    Types of property 'children' are incompatible.
+      Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+        Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+          Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+            Types of property 'type' are incompatible.
+              Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+                Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/template-customize-step.tsx(48,19): error TS2322: Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }[]'.
+  Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+    Types of property 'children' are incompatible.
+      Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+        Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+          Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+            Types of property 'type' are incompatible.
+              Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+                Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/template-customize-step.tsx(53,19): error TS2322: Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }[]'.
+  Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+    Types of property 'children' are incompatible.
+      Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+        Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+          Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+            Types of property 'type' are incompatible.
+              Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+                Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/template-customize-step.tsx(59,19): error TS2322: Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }[]'.
+  Type 'MenuComponent' is not assignable to type '{ id: string; type: "group" | "item" | "divider"; label?: string | undefined; icon?: string | undefined; children?: { id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined; }'.
+    Types of property 'children' are incompatible.
+      Type 'MenuComponent[] | undefined' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[] | undefined'.
+        Type 'MenuComponent[]' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }[]'.
+          Type 'MenuComponent' is not assignable to type '{ id: string; type: "item"; label?: string | undefined; icon?: string | undefined; }'.
+            Types of property 'type' are incompatible.
+              Type '"group" | "item" | "divider"' is not assignable to type '"item"'.
+                Type '"group"' is not assignable to type '"item"'.
+src/components/onboarding/steps/template-customize-step.tsx(104,25): error TS2322: Type '{ primary: string; accent?: string | undefined; }' is not assignable to type '{ primary: string; accent: string; }'.
+  Types of property 'accent' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/components/onboarding/steps/template-customize-step.tsx(125,25): error TS2322: Type '{ accent: string; primary?: string | undefined; }' is not assignable to type '{ primary: string; accent: string; }'.
+  Types of property 'primary' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/domains/rbac/generate-defaults.ts(55,5): error TS2322: Type '{ resource: string; actions: readonly ["manage"]; }' is not assignable to type 'Permission'.
+  Types of property 'actions' are incompatible.
+    The type 'readonly ["manage"]' is 'readonly' and cannot be assigned to the mutable type '("create" | "update" | "delete" | "read" | "manage")[]'.
+src/domains/rbac/generate-defaults.ts(66,5): error TS2322: Type '{ resource: string; actions: readonly ["create", "read", "update", "delete"]; }' is not assignable to type 'Permission'.
+  Types of property 'actions' are incompatible.
+    The type 'readonly ["create", "read", "update", "delete"]' is 'readonly' and cannot be assigned to the mutable type '("create" | "update" | "delete" | "read" | "manage")[]'.
+src/lib/audit/audit-logger.ts(4,35): error TS2307: Cannot find module '../auth/session' or its corresponding type declarations.
+src/lib/audit/audit-logger.ts(55,11): error TS2322: Type 'Record<string, unknown>' is not assignable to type 'JsonNull | InputJsonValue | undefined'.
+  Type 'Record<string, unknown>' is missing the following properties from type 'readonly (InputJsonValue | null)[]': length, concat, join, slice, and 26 more.
+src/lib/audit/audit-service.ts(72,7): error TS2322: Type '{ user: { select: { id: true; name: true; email: true; }; }; }' is not assignable to type 'never'.
+src/lib/audit/index.ts(1,25): error TS2305: Module '"./audit-logger"' has no exported member 'audit'.
+src/lib/cache/cache.service.ts(79,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/cache/onboarding-cache.ts(169,21): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'Without<EnterpriseCreateInput, EnterpriseUncheckedCreateInput> & EnterpriseUncheckedCreateInput'.
+src/lib/cache/onboarding-cache.ts(304,17): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'Without<EnterpriseCreateInput, EnterpriseUncheckedCreateInput> & EnterpriseUncheckedCreateInput'.
+src/lib/errors/error-handler.ts(19,7): error TS2353: Object literal may only specify known properties, and 'code' does not exist in type 'Error'.
+src/lib/errors/error-handler.ts(57,5): error TS2353: Object literal may only specify known properties, and 'error' does not exist in type 'Error'.
+src/lib/exports.ts(28,1): error TS2308: Module "~/lib/hooks" has already exported a member named 'getWorkspacePermissions'. Consider explicitly re-exporting to resolve the ambiguity.
+src/lib/feature-flags/provider.tsx(3,37): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/lib/logger/middleware.ts(5,35): error TS2307: Cannot find module '../auth/session' or its corresponding type declarations.
+src/lib/mock-data/templates.ts(12,5): error TS2353: Object literal may only specify known properties, and 'requiredFeatures' does not exist in type 'Template'.
+src/lib/mock-data/templates.ts(20,5): error TS2353: Object literal may only specify known properties, and 'requiredFeatures' does not exist in type 'Template'.
+src/lib/mock-data/templates.ts(35,5): error TS2353: Object literal may only specify known properties, and 'requiredFeatures' does not exist in type 'Template'.
+src/lib/mock-data/templates.ts(43,5): error TS2353: Object literal may only specify known properties, and 'requiredFeatures' does not exist in type 'Template'.
+src/lib/permissions/permission-checker.ts(3,35): error TS2307: Cannot find module '../auth/session' or its corresponding type declarations.
+src/lib/rate-limit/middleware.ts(3,35): error TS2307: Cannot find module '../auth/session' or its corresponding type declarations.
+src/lib/security/sanitizer.ts(62,7): error TS2862: Type 'T' is generic and can only be indexed for reading.
+src/lib/security/sanitizer.ts(64,7): error TS2862: Type 'T' is generic and can only be indexed for reading.
+src/lib/validation/middleware.ts(24,31): error TS2345: Argument of type '[Args[0], ...any[]]' is not assignable to parameter of type 'Args'.
+  '[Args[0], ...any[]]' is assignable to the constraint of type 'Args', but 'Args' could be instantiated with a different subtype of constraint 'any[]'.
+src/lib/validation/schemas.ts(40,37): error TS2339: Property 'trim' does not exist on type 'ZodOptional<ZodString>'.
+vitest.config.ts(1,30): error TS2307: Cannot find module 'vitest/config' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/api/workspace-create.test.ts(5,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/company.test.ts(5,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/company.test.ts(6,43): error TS2307: Cannot find module '@/domains/company/company' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(5,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(6,72): error TS2307: Cannot find module '@/domains/workspace/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(7,47): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(89,35): error TS7006: Parameter 'm' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(96,31): error TS7006: Parameter 'm' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(106,25): error TS7006: Parameter 'm' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/__tests__/domains/workspace.test.ts(107,25): error TS7006: Parameter 'm' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/layout-builder/[layoutId]/route.ts(12,8): error TS2307: Cannot find module '@/lib/db/repositories/layout.repository' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/layout-builder/route.ts(12,8): error TS2307: Cannot find module '@/lib/db/repositories/layout.repository' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/layout-builder/route.ts(13,58): error TS2307: Cannot find module '@/domains/layout-builder/layout-builder' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/page/[pageId]/route.ts(6,53): error TS2307: Cannot find module '@/domains/page/page' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/page/[pageId]/route.ts(13,8): error TS2307: Cannot find module '@/lib/db/repositories/page.repository' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/page/[pageId]/route.ts(14,38): error TS2307: Cannot find module '@/domains/page/page.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/page/route.ts(6,28): error TS2307: Cannot find module '@/domains/page/page' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/page/route.ts(7,54): error TS2307: Cannot find module '@/lib/db/repositories/page.repository' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/page/route.ts(8,51): error TS2307: Cannot find module '@/domains/page/page.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/theme/route.ts(15,8): error TS2307: Cannot find module '@/domains/theme/theme' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/theme/route.ts(16,53): error TS2307: Cannot find module '@/lib/db/repositories/theme.repository' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/theme/validate/route.ts(12,8): error TS2307: Cannot find module '@/domains/theme/theme' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/theme/validate/route.ts(13,33): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/workspace/create/route.ts(8,33): error TS2307: Cannot find module '@/domains/workspace/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/workspace/create/route.ts(9,37): error TS2307: Cannot find module '@/lib/db/client' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/workspace/create/route.ts(16,8): error TS2307: Cannot find module '@/lib/db/repositories/workspace.repository' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/workspace/create/route.ts(17,67): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/domains/workspace/create/route.ts(82,8): error TS7006: Parameter 'w' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(7,30): error TS2307: Cannot find module '@/domains/workspace/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(8,76): error TS2307: Cannot find module '@/domains/template/template' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(9,33): error TS2307: Cannot find module '@/lib/mock-data/templates' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(10,33): error TS2307: Cannot find module '@/lib/mock-data/components' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(11,32): error TS2307: Cannot find module '@/lib/mock-data/colors' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(12,51): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/preview/route.ts(45,52): error TS7006: Parameter 'r' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/templates/route.ts(7,32): error TS2307: Cannot find module '@/lib/mock-data/templates' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/validate-id/route.ts(7,43): error TS2307: Cannot find module '@/domains/company/company' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/validate-id/route.ts(8,37): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/workspace/create/route.ts(7,33): error TS2307: Cannot find module '@/domains/workspace/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/workspace/create/route.ts(8,67): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/api/mock/domains/workspace/create/route.ts(9,61): error TS2307: Cannot find module '@/lib/mock-data/users' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(18,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(19,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(20,75): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(21,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(22,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(23,30): error TS2307: Cannot find module '@/lib/hooks/use-workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(24,40): error TS2307: Cannot find module '@/domains/rbac/rbac' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(39,30): error TS1117: An object literal cannot have multiple properties with the same name.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/analytics/page.tsx(128,55): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/financeiro/page.tsx(15,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/financeiro/page.tsx(16,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/financeiro/page.tsx(17,22): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/financeiro/page.tsx(18,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/financeiro/page.tsx(19,30): error TS2307: Cannot find module '@/lib/hooks/use-workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(27,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(28,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(29,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(30,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(31,53): error TS2307: Cannot find module '@/components/ui/avatar' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(38,8): error TS2307: Cannot find module '@/components/ui/dropdown-menu' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(39,82): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(171,22): error TS7006: Parameter 'item' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(172,19): error TS7006: Parameter 'item' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(172,25): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/layout.tsx(190,41): error TS7006: Parameter 'i' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/page.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/page.tsx(6,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/page.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/page.tsx(8,30): error TS2307: Cannot find module '@/lib/hooks/use-workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/page.tsx(147,34): error TS7006: Parameter 'app' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(6,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(7,75): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(8,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(9,24): error TS2307: Cannot find module '@/components/ui/switch' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(10,58): error TS2307: Cannot find module '@/components/ui/tabs' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(11,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(12,24): error TS2307: Cannot find module '@/components/ui/slider' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(13,23): error TS2307: Cannot find module '@/components/ui/badge' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(14,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(16,32): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(26,8): error TS2307: Cannot find module '@/domains/component/component.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(37,8): error TS2307: Cannot find module '@/domains/component/component' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(38,37): error TS2307: Cannot find module '@/components/dashboard/configurable-sidebar' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(39,36): error TS2307: Cannot find module '@/components/dashboard/configurable-topbar' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(40,35): error TS2307: Cannot find module '@/components/dashboard/configurable-chart' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(174,34): error TS7006: Parameter 'preset' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(193,59): error TS7006: Parameter 'useCase' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(313,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(324,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(335,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(346,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(363,40): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(379,40): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(486,38): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(502,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(513,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(524,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(535,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(546,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(557,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(637,38): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(652,38): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(667,38): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(683,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(694,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(814,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(825,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(836,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/components/page.tsx(847,41): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(4,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(5,75): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(6,58): error TS2307: Cannot find module '@/components/ui/tabs' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(7,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(8,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(9,24): error TS2307: Cannot find module '@/components/ui/switch' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(10,23): error TS2307: Cannot find module '@/components/ui/badge' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(11,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(12,28): error TS2307: Cannot find module '@/components/ui/scroll-area' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(13,36): error TS2307: Cannot find module '@/components/onboarding/primitives/theme-live-previewer' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(14,41): error TS2307: Cannot find module '@/lib/stores/component-config-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(32,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(162,40): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(168,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(182,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(187,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(200,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(205,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(218,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(223,38): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(239,43): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(441,47): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(449,47): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(457,47): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(500,47): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/settings/layout-builder/page.tsx(508,47): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(23,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(24,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(25,75): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(26,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(27,23): error TS2307: Cannot find module '@/components/ui/badge' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(28,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(35,8): error TS2307: Cannot find module '@/components/ui/dropdown-menu' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(43,8): error TS2307: Cannot find module '@/components/ui/dialog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(44,45): error TS2307: Cannot find module '@/components/ui/tabs' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(45,26): error TS2307: Cannot find module '@/components/ui/textarea' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(46,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(47,26): error TS2307: Cannot find module '@/components/ui/checkbox' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(48,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(49,30): error TS2307: Cannot find module '@/lib/hooks/use-workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(62,8): error TS2307: Cannot find module '@/domains/task-generation/backlog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(69,8): error TS2307: Cannot find module '@/domains/task-generation/backlog.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(70,66): error TS2307: Cannot find module '@/domains/task-generation/task-generation.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(190,43): error TS7006: Parameter 't' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(284,50): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(307,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(316,31): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(335,31): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(352,31): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(371,31): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(378,29): error TS7006: Parameter 'team' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(537,26): error TS7006: Parameter 's' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(538,23): error TS7006: Parameter 'sprint' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(635,43): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(644,59): error TS7006: Parameter 'label' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(835,57): error TS7006: Parameter 'label' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1046,56): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1054,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1063,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1079,56): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1095,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1115,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1164,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1272,61): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1280,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1288,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1304,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1325,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1335,56): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1351,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1371,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/dashboard/tasks/page.tsx(1414,63): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/app/layout.tsx(4,27): error TS2307: Cannot find module '@vercel/analytics/next' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/layout.tsx(3,39): error TS2307: Cannot find module '@/components/providers/real-time-theme-provider' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(4,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(5,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(6,31): error TS2307: Cannot find module '@/components/onboarding/primitives/step-indicator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(7,27): error TS2307: Cannot find module '@/components/onboarding/steps/intro-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(8,35): error TS2307: Cannot find module '@/components/onboarding/steps/theme-features-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(9,33): error TS2307: Cannot find module '@/components/onboarding/steps/company-type-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(10,36): error TS2307: Cannot find module '@/components/onboarding/steps/template-choice-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(11,35): error TS2307: Cannot find module '@/components/onboarding/steps/custom-builder-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(12,39): error TS2307: Cannot find module '@/components/onboarding/steps/template-customize-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(13,29): error TS2307: Cannot find module '@/components/onboarding/steps/preview-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/app/onboarding/page.tsx(14,28): error TS2307: Cannot find module '@/components/onboarding/steps/create-step' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(19,75): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(20,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(21,34): error TS2307: Cannot find module '@/domains/component/component.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(22,34): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(58,47): error TS7006: Parameter 's' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(70,33): error TS7006: Parameter 'series' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(70,41): error TS7006: Parameter 'index' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(93,33): error TS7006: Parameter 'series' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(93,41): error TS7006: Parameter 'index' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(113,33): error TS7006: Parameter 'series' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-chart.tsx(113,41): error TS7006: Parameter 'index' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(6,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(7,74): error TS2307: Cannot find module '@/components/ui/tooltip' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(8,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(9,53): error TS2307: Cannot find module '@/components/ui/avatar' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(11,36): error TS2307: Cannot find module '@/domains/component/component.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-sidebar.tsx(12,56): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(6,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(7,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(8,53): error TS2307: Cannot find module '@/components/ui/avatar' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(15,8): error TS2307: Cannot find module '@/components/ui/dropdown-menu' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(22,8): error TS2307: Cannot find module '@/components/ui/breadcrumb' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(24,35): error TS2307: Cannot find module '@/domains/component/component.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/dashboard/configurable-topbar.tsx(25,46): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/preview/workspace-preview.tsx(19,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/preview/workspace-preview.tsx(20,71): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/preview/workspace-preview.tsx(21,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/preview/workspace-preview.tsx(82,18): error TS7053: Element implicitly has an 'any' type because expression of type 'ThemeStyle' can't be used to index type '{ minimal: { bg: string; sidebar: string; border: string; text: string; muted: string; }; corporate: { bg: string; sidebar: string; border: string; text: string; muted: string; }; playful: { bg: string; sidebar: string; border: string; text: string; muted: string; }; }'.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/assembly-animation.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/assembly-animation.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(7,34): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(8,37): error TS2307: Cannot find module '@/lib/mock-data/colors' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(9,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(10,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(11,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(12,57): error TS2307: Cannot find module '@/components/ui/popover' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(33,37): error TS7006: Parameter 'palette' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(33,46): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(85,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(91,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(115,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/color-picker.tsx(121,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/feature-selector.tsx(19,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/feature-selector.tsx(20,31): error TS2307: Cannot find module '@/lib/mock-data/features' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/feature-selector.tsx(21,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/feature-selector.tsx(55,29): error TS7006: Parameter 'feature' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/feature-selector.tsx(55,38): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(22,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(23,36): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(24,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(25,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(26,90): error TS2307: Cannot find module '@/components/ui/dropdown-menu' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(27,31): error TS2307: Cannot find module '@/lib/mock-data/features' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(54,6): error TS7006: Parameter 'f' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(77,41): error TS7006: Parameter 'f' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/menu-builder.tsx(111,36): error TS7006: Parameter 'feature' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/skeleton.tsx(1,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/step-indicator.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/step-indicator.tsx(6,37): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/step-indicator.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/template-card.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/template-card.tsx(8,31): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/template-card.tsx(9,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/template-card.tsx(70,56): error TS7006: Parameter 'feature' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/theme-live-previewer.tsx(4,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/theme-live-previewer.tsx(19,35): error TS2307: Cannot find module '@/domains/layout-builder/layout-builder.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/theme-picker.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/theme-picker.tsx(6,33): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/theme-picker.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/topbar-selector.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/topbar-selector.tsx(6,49): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/topbar-selector.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/uploader.tsx(8,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/primitives/uploader.tsx(9,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(6,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(8,57): error TS2307: Cannot find module '@/lib/mock-data/company-types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(9,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(10,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(11,24): error TS2307: Cannot find module '@/components/ui/slider' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(12,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(13,34): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(58,36): error TS7006: Parameter 'type' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(58,42): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(88,28): error TS7031: Binding element 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/company-type-step.tsx(114,39): error TS7006: Parameter 'range' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(7,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(8,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(9,28): error TS2307: Cannot find module '@/lib/hooks/use-api-call' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(10,36): error TS2307: Cannot find module '@/lib/api-client' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(11,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(12,43): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(236,46): error TS7006: Parameter 'err' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/create-step.tsx(236,51): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(34,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(35,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(40,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(41,75): error TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(42,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(43,24): error TS2307: Cannot find module '@/components/ui/switch' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(44,24): error TS2307: Cannot find module '@/components/ui/slider' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(45,58): error TS2307: Cannot find module '@/components/ui/tabs' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(46,23): error TS2307: Cannot find module '@/components/ui/badge' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(47,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(48,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(49,28): error TS2307: Cannot find module '@/components/ui/scroll-area' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(54,8): error TS2307: Cannot find module '@/components/ui/collapsible' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(61,8): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(67,8): error TS2307: Cannot find module '@/components/ui/tooltip' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(68,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(79,8): error TS2307: Cannot find module '@/domains/layout-builder/layout-builder' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(86,8): error TS2307: Cannot find module '@/domains/layout-builder/layout-builder.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(230,24): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(275,37): error TS7006: Parameter 'variant' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(313,38): error TS7006: Parameter 'layout' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(347,28): error TS7006: Parameter 'preset' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(403,22): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(571,45): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(593,48): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(606,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(617,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(628,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(639,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(677,47): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(700,48): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(714,49): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(725,49): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(777,44): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(797,44): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(817,44): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(899,43): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(924,48): error TS7031: Binding element 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(937,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(948,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/custom-builder-step.tsx(959,51): error TS7006: Parameter 'checked' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(7,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(8,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(9,28): error TS2307: Cannot find module '@/lib/hooks/use-api-call' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(10,36): error TS2307: Cannot find module '@/lib/api-client' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(12,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(13,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(14,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(15,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(166,24): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(175,60): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/intro-step.tsx(194,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(6,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(8,44): error TS2307: Cannot find module '@/domains/template/template' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(9,30): error TS2307: Cannot find module '@/domains/workspace/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(10,33): error TS2307: Cannot find module '@/lib/mock-data/templates' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(12,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(13,69): error TS2307: Cannot find module '@/components/ui/collapsible' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(14,31): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(130,47): error TS7006: Parameter 'warning' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/preview-step.tsx(130,56): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(6,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(8,28): error TS2307: Cannot find module '@/lib/hooks/use-api-call' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(9,32): error TS2307: Cannot find module '@/lib/api-client' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(13,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(14,31): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-choice-step.tsx(112,36): error TS7006: Parameter 'template' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-customize-step.tsx(6,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-customize-step.tsx(7,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-customize-step.tsx(8,33): error TS2307: Cannot find module '@/lib/mock-data/templates' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-customize-step.tsx(11,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/template-customize-step.tsx(12,31): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/theme-features-step.tsx(5,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/theme-features-step.tsx(6,34): error TS2307: Cannot find module '@/lib/hooks/use-reduced-motion' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/onboarding/steps/theme-features-step.tsx(9,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(11,41): error TS2307: Cannot find module '@/lib/stores/component-config-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(18,57): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(19,48): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(30,35): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string | null'.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(50,57): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(51,48): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/css-variables-provider.tsx(87,42): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(4,36): error TS2307: Cannot find module '@/lib/stores/onboarding-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(5,41): error TS2307: Cannot find module '@/lib/stores/component-config-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(11,8): error TS2307: Cannot find module '@/domains/live-theme/live-theme' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(16,8): error TS2307: Cannot find module '@/domains/live-theme/live-theme.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(49,48): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(50,47): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(53,49): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(161,48): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(162,46): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/providers/real-time-theme-provider.tsx(214,48): error TS7006: Parameter 'state' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(4,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(12,8): error TS2307: Cannot find module '@/components/ui/dialog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(13,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(14,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(15,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(16,26): error TS2307: Cannot find module '@/components/ui/textarea' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(17,28): error TS2307: Cannot find module '@/domains/task-generation/backlog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(18,35): error TS2307: Cannot find module '@/domains/task-generation/backlog.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(19,66): error TS2307: Cannot find module '@/domains/task-generation/task-generation.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(107,56): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(115,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(124,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(140,56): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(156,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(176,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/create-task-dialog.tsx(225,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(4,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(12,8): error TS2307: Cannot find module '@/components/ui/dialog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(13,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(14,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(15,79): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(16,26): error TS2307: Cannot find module '@/components/ui/textarea' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(17,28): error TS2307: Cannot find module '@/domains/task-generation/backlog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(18,67): error TS2307: Cannot find module '@/domains/task-generation/backlog.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(19,66): error TS2307: Cannot find module '@/domains/task-generation/task-generation.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(129,61): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(137,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(145,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(161,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(182,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(192,56): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(208,54): error TS7006: Parameter 'v' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(228,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/tasks/edit-task-dialog.tsx(271,63): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/accordion.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/alert-dialog.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/alert-dialog.tsx(7,32): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/alert.tsx(4,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/avatar.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/badge.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/breadcrumb.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/button-group.tsx(4,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/button-group.tsx(5,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/button.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(9,10): error TS2724: '"react-day-picker"' has no exported member named 'DayButton'. Did you mean 'Button'?
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(9,32): error TS2305: Module '"react-day-picker"' has no exported member 'getDefaultClassNames'.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(11,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(12,40): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(18,3): error TS2322: Type '"label"' is not assignable to type 'CaptionLayout'.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(39,9): error TS2353: Object literal may only specify known properties, and 'formatMonthDropdown' does not exist in type 'Partial<Formatters>'.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(39,31): error TS7006: Parameter 'date' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(54,9): error TS2561: Object literal may only specify known properties, but 'button_previous' does not exist in type 'Partial<StyledElement<string>>'. Did you mean to write 'nav_button_previous'?
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(82,11): error TS2367: This comparison appears to be unintentional because the types 'CaptionLayout' and '"label"' have no overlap.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(128,9): error TS2353: Object literal may only specify known properties, and 'Root' does not exist in type 'CustomComponents'.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(128,18): error TS7031: Binding element 'className' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(128,29): error TS7031: Binding element 'rootRef' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(138,21): error TS7031: Binding element 'className' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(138,32): error TS7031: Binding element 'orientation' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/calendar.tsx(159,24): error TS2339: Property 'children' does not exist on type 'WeekNumberProps'.
+workspace-onboarding-flow-seu-mei-2/components/ui/card.tsx(3,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/carousel.tsx(9,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/carousel.tsx(10,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/chart.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/checkbox.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/command.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/command.tsx(14,8): error TS2307: Cannot find module '@/components/ui/dialog' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/context-menu.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/dialog.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/drawer.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/dropdown-menu.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/empty.tsx(3,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/field.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/field.tsx(7,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/field.tsx(8,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/form.tsx(16,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/form.tsx(17,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/hover-card.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/input-group.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/input-group.tsx(6,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/input-group.tsx(7,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/input-group.tsx(8,26): error TS2307: Cannot find module '@/components/ui/textarea' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/input-otp.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/input.tsx(3,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/item.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/item.tsx(6,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/kbd.tsx(1,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/label.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/menubar.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/navigation-menu.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/pagination.tsx(8,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/pagination.tsx(9,40): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/pagination.tsx(75,7): error TS2783: 'size' is specified more than once, so this usage will be overwritten.
+workspace-onboarding-flow-seu-mei-2/components/ui/pagination.tsx(92,7): error TS2783: 'size' is specified more than once, so this usage will be overwritten.
+workspace-onboarding-flow-seu-mei-2/components/ui/popover.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/progress.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/radio-group.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/resizable.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/scroll-area.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/select.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/separator.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sheet.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(5,15): error TS1484: 'VariantProps' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(8,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(9,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(10,24): error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(11,23): error TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(12,27): error TS2307: Cannot find module '@/components/ui/separator' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(19,8): error TS2307: Cannot find module '@/components/ui/sheet' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(20,26): error TS2307: Cannot find module '@/components/ui/skeleton' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(26,8): error TS2307: Cannot find module '@/components/ui/tooltip' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sidebar.tsx(270,17): error TS7006: Parameter 'event' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/skeleton.tsx(1,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/slider.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/sonner.tsx(4,29): error TS1484: 'ToasterProps' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+workspace-onboarding-flow-seu-mei-2/components/ui/spinner.tsx(3,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/switch.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/table.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/tabs.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/textarea.tsx(3,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/toast.tsx(8,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/toaster.tsx(3,26): error TS2307: Cannot find module '@/hooks/use-toast' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/toaster.tsx(11,8): error TS2307: Cannot find module '@/components/ui/toast' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/toaster.tsx(18,31): error TS7031: Binding element 'id' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/toaster.tsx(18,35): error TS7031: Binding element 'title' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/toaster.tsx(18,42): error TS7031: Binding element 'description' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/toaster.tsx(18,55): error TS7031: Binding element 'action' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/components/ui/toggle-group.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/toggle-group.tsx(8,32): error TS2307: Cannot find module '@/components/ui/toggle' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/toggle.tsx(7,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/tooltip.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/use-toast.ts(6,53): error TS2307: Cannot find module '@/components/ui/toast' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/components/ui/use-toast.ts(158,22): error TS7006: Parameter 'open' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/domains/company/company.types.ts(1,55): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/component/component.ts(22,61): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/component/component.types.ts(6,61): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/layout-builder/layout-builder.types.ts(6,64): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/live-theme/live-theme.types.ts(6,46): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/page/page.ts(17,57): error TS2307: Cannot find module '@/types/analytics' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/page/page.ts(18,32): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/page/page.ts(19,35): error TS2307: Cannot find module '@/domains/workspace/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/rbac/rbac.ts(98,37): error TS7006: Parameter 'perm' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/domains/rbac/rbac.ts(153,27): error TS7006: Parameter 'role' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/domains/rbac/rbac.types.ts(1,69): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/task-generation/task-generation.types.ts(6,66): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/template/template.ts(151,69): error TS7006: Parameter 'f' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/domains/template/template.types.ts(1,84): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/theme/theme.ts(23,46): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/theme/theme.ts(419,49): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+workspace-onboarding-flow-seu-mei-2/domains/theme/theme.ts(423,48): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+workspace-onboarding-flow-seu-mei-2/domains/theme/theme.types.ts(5,46): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/workspace/workspace.ts(17,8): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/workspace/workspace.ts(21,35): error TS2307: Cannot find module '@/lib/mock-data/components' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/workspace/workspace.ts(22,33): error TS2307: Cannot find module '@/lib/mock-data/templates' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/domains/workspace/workspace.ts(294,35): error TS7006: Parameter 'child' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/hooks/use-toast.ts(6,53): error TS2307: Cannot find module '@/components/ui/toast' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/hooks/use-toast.ts(158,22): error TS7006: Parameter 'open' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/api-client.ts(12,8): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/layout.repository.ts(6,10): error TS2305: Module '"../client"' has no exported member 'getDb'.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/layout.repository.ts(12,8): error TS2307: Cannot find module '@/domains/layout-builder/layout-builder.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/layout.repository.ts(16,8): error TS2307: Cannot find module '@/domains/layout-builder/layout-builder' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/page.repository.ts(7,15): error TS2305: Module '"../schemas"' has no exported member 'DBPage'.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/page.repository.ts(8,46): error TS2307: Cannot find module '@/domains/page/page.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/page.repository.ts(9,48): error TS2307: Cannot find module '@/domains/page/page' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(6,10): error TS2305: Module '"../client"' has no exported member 'db'.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(7,15): error TS2724: '"../schemas"' has no exported member named 'DBWorkspaceTheme'. Did you mean 'DBWorkspace'?
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(8,70): error TS2307: Cannot find module '@/domains/theme/theme.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(9,88): error TS2307: Cannot find module '@/domains/theme/theme' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(45,33): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(96,33): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/theme.repository.ts(211,24): error TS7006: Parameter 'row' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/db/repositories/workspace.repository.ts(17,60): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/hooks/index.ts(7,22): error TS2724: '"./use-api-call"' has no exported member named 'useApiState'. Did you mean 'ApiState'?
+workspace-onboarding-flow-seu-mei-2/lib/hooks/index.ts(28,8): error TS2307: Cannot find module '@/lib/stores/component-config-store' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/hooks/use-workspace.ts(5,50): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/hooks/use-workspace.ts(64,63): error TS7006: Parameter 'r' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/mock-data/colors.ts(1,46): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/mock-data/company-types.ts(1,34): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/mock-data/components.ts(1,51): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/mock-data/features.ts(1,30): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/mock-data/templates.ts(1,31): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/mock-data/users.ts(1,45): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(17,8): error TS2307: Cannot find module '@/domains/component/component.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(22,8): error TS2307: Cannot find module '@/domains/component/component.types' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(29,8): error TS2307: Cannot find module '@/domains/component/component' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(30,46): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(602,43): error TS7006: Parameter 'e' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(618,11): error TS2322: Type 'unknown' is not assignable to type 'string'.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(623,11): error TS2322: Type 'unknown' is not assignable to type 'string'.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(628,11): error TS2322: Type 'unknown' is not assignable to type 'string'.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(633,11): error TS2322: Type 'unknown' is not assignable to type 'string'.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(638,11): error TS2322: Type 'unknown' is not assignable to type 'string'.
+workspace-onboarding-flow-seu-mei-2/lib/stores/component-config-store.ts(648,11): error TS2322: Type 'unknown' is not assignable to type 'string'.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(18,8): error TS2307: Cannot find module '@/types/workspace' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(19,41): error TS2307: Cannot find module '@/lib/mock-data/components' or its corresponding type declarations.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(99,17): error TS7006: Parameter 'step' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(131,26): error TS7006: Parameter 'step' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(139,24): error TS7006: Parameter 'name' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(140,24): error TS7006: Parameter 'logo' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(141,27): error TS7006: Parameter 'type' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(142,28): error TS7006: Parameter 'value' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(145,18): error TS7006: Parameter 'theme' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(146,23): error TS7006: Parameter 'featureId' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(149,38): error TS7006: Parameter 'f' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(153,21): error TS7006: Parameter 'features' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(156,24): error TS7006: Parameter 'type' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(157,26): error TS7006: Parameter 'count' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(158,25): error TS7006: Parameter 'range' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(161,24): error TS7006: Parameter 'choice' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(162,29): error TS7006: Parameter 'templateId' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(165,27): error TS7006: Parameter 'components' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(166,31): error TS7006: Parameter 'fromIndex' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(166,42): error TS7006: Parameter 'toIndex' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(173,26): error TS7006: Parameter 'variant' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(174,24): error TS7006: Parameter 'colors' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(177,34): error TS7006: Parameter 'warnings' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/lib/stores/onboarding-store.ts(191,20): error TS7006: Parameter 'step' implicitly has an 'any' type.
+workspace-onboarding-flow-seu-mei-2/scripts/004-migrate-mock-settings.ts(21,77): error TS2345: Argument of type '{ theme: string; defaultWorkspaceId: null; locale: string; notifications: boolean; }' is not assignable to parameter of type 'MockUserSettings'.
+  Types of property 'defaultWorkspaceId' are incompatible.
+    Type 'null' is not assignable to type 'string | undefined'.

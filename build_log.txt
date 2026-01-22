@@ -1,0 +1,56 @@
+
+> Seumei@1.7.0 build C:\Apps\Matrizhub\seumeiworkspace
+> pnpm build:content && prisma generate && prisma db push && next build
+
+
+> Seumei@1.7.0 build:content C:\Apps\Matrizhub\seumeiworkspace
+> velite build --clean
+
+[32m[VELITE][0m build finished in 111.47ms
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v6.19.2) to .\node_modules\.pnpm\@prisma+client@6.19.2_prism_194920a5ab5989f9821c66715ecadd58\node_modules\@prisma\client in 260ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "postgres", schema "public" at "db.prisma.io:5432"
+
+The database is already in sync with the Prisma schema.
+
+Running generate... (Use --skip-generate to skip the generators)
+[2K[1A[2K[GRunning generate... - Prisma Client
+[2K[1A[2K[G✔ Generated Prisma Client (v6.19.2) to .\node_modules\.pnpm\@prisma+client@6.19
+.2_prism_194920a5ab5989f9821c66715ecadd58\node_modules\@prisma\client in 279ms
+
+[@serwist/next] WARNING: You are using '@serwist/next' with `next dev --turbopack`, but Serwist doesn't support Turbopack at the moment. It is recommended that you set `disable` to `process.env.NODE_ENV !== "production"`. Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.
+ ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+ ⚠ Invalid next.config.mjs options detected: 
+ ⚠     Unrecognized key(s) in object: 'eslint'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Environments: .env
+
+   Creating an optimized production build ...
+[@serwist/next] WARNING: You are using '@serwist/next' with `next dev --turbopack`, but Serwist doesn't support Turbopack at the moment. It is recommended that you set `disable` to `process.env.NODE_ENV !== "production"`. Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.
+ ✓ Compiled successfully in 8.4s
+   Running TypeScript ...
+Failed to compile.
+
+./src/lib/audit/audit-logger.ts:55:11
+Type error: Type 'Record<string, unknown>' is not assignable to type 'JsonNull | InputJsonValue | undefined'.
+  Type 'Record<string, unknown>' is missing the following properties from type 'readonly (InputJsonValue | null)[]': length, concat, join, slice, and 26 more.
+
+[0m [90m 53 |[39m           entityType[33m:[39m context[33m.[39mentityType[33m,[39m
+ [90m 54 |[39m           entityId[33m:[39m context[33m.[39mentityId[33m,[39m
+[31m[1m>[22m[39m[90m 55 |[39m           properties[33m:[39m context[33m.[39mmetadata [33m||[39m {}[33m,[39m
+ [90m    |[39m           [31m[1m^[22m[39m
+ [90m 56 |[39m         }[33m,[39m
+ [90m 57 |[39m       })[33m;[39m
+ [90m 58 |[39m     }[0m
+Next.js build worker exited with code: 1 and signal: null
+ ELIFECYCLE  Command failed with exit code 1.

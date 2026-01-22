@@ -1,0 +1,20 @@
+# Lefthook configuration
+# Git hooks para qualidade de código
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: pnpm lint --fix
+      stage_fixed: true
+    type-check:
+      run: pnpm exec tsc --noEmit
+    format:
+      run: pnpm format
+      stage_fixed: true
+
+pre-push:
+  commands:
+    test:
+      run: pnpm test --run
+      glob: "*.{ts,tsx}"

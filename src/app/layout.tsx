@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "~/lib/utils";
 import { I18nProviderWrapper } from "~/components/providers/i18n-provider-wrapper";
+import GTag from "~/app/[locale]/_components/Body/GTag";
 import "./globals.css";
 
 const fontSans = Inter({
@@ -29,6 +30,7 @@ export default function RootLayout({
           fontHeading.variable
         )}
       >
+        <GTag />
         <I18nProviderWrapper locale="pt">
           {children}
         </I18nProviderWrapper>

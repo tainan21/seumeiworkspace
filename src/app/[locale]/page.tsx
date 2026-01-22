@@ -5,6 +5,7 @@ import { FeaturesSection } from "~/components/sections/features-section"
 import { TestimonialsSection } from "~/components/sections/testimonials-section"
 import { PricingSection } from "~/components/sections/pricing-section"
 import { CtaSection } from "~/components/sections/cta-section"
+import Footer from "~/components/layout/footer";
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
       <TestimonialsSection />
       <PricingSection />
       <CtaSection />
+      <Footer />
+
     </main>
   )
 }

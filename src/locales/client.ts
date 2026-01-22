@@ -11,4 +11,5 @@ export const {
   pt: () => import("./pt"),
   en: () => import("./en"),
   fr: () => import("./fr"),
+  es: () => import("./es"),
 });

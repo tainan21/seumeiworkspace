@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Logo } from "~/components/seumei/logo"
+import { Logo } from "~/components/shared/logo"
 import LocaleToggler from "~/components/shared/locale-toggler"
 
 const navLinks = [

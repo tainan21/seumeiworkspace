@@ -30,6 +30,8 @@ model User {
   stripePriceId          String?                 @map("stripe_price_id")
   stripeCurrentPeriodEnd DateTime?               @map("stripe_current_period_end")
   projects               Project[]
+  auditLogs              AuditLog[]              @relation("AuditLogUser")
+  analyticsEvents        AnalyticsEvent[]       @relation("AnalyticsEventUser")
 
   @@index([email])
   @@index([status])
@@ -87,6 +89,10 @@ model Workspace {
   invites            WorkspaceInvite[]
   members            WorkspaceMember[]
   enterpriseMother   Enterprise?        @relation("EnterpriseMother", fields: [enterpriseMotherId], references: [id])
+  moduleConfigs      ModuleConfig[]
+  analyticsMetrics   AnalyticsMetric[]
+  auditLogs          AuditLog[]
+  paymentLinks       PaymentLink[]
 
   @@index([slug])
   @@index([status])
@@ -158,6 +164,7 @@ model Enterprise {
   workspace         Workspace              @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   themes            ThemeUI[]
   workspaceAsMother Workspace?             @relation("EnterpriseMother")
+  paymentLinks      PaymentLink[]
 
   @@index([workspaceId])
   @@index([document])
@@ -382,6 +389,7 @@ model AnalyticsEvent {
   entityId    String?
   properties  Json     @default("{}")
   createdAt   DateTime @default(now())
+  user        User?    @relation("AnalyticsEventUser", fields: [userId], references: [id])
 
   @@index([workspaceId])
   @@index([eventType])
@@ -390,14 +398,15 @@ model AnalyticsEvent {
 }
 
 model AnalyticsMetric {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   workspaceId String
   metricType  String
   period      String
   periodDate  DateTime
-  value       Decimal  @db.Decimal(15, 2)
+  value       Decimal   @db.Decimal(15, 2)
   metadata    Json?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   @@unique([workspaceId, metricType, period, periodDate])
   @@index([workspaceId])
@@ -487,7 +496,7 @@ model ModulePermission {
 }
 
 model AuditLog {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   workspaceId String?
   userId      String?
   userEmail   String?
@@ -498,7 +507,9 @@ model AuditLog {
   metadata    Json?
   ipAddress   String?
   userAgent   String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User?      @relation("AuditLogUser", fields: [userId], references: [id])
 
   @@index([workspaceId])
   @@index([userId])
@@ -842,6 +853,8 @@ model PaymentLink {
   usesCount         Int               @default(0)
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
+  workspace         Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  enterprise        Enterprise?       @relation(fields: [enterpriseId], references: [id])
 
   @@index([workspaceId])
   @@index([code])
@@ -924,12 +937,13 @@ model Module {
 }
 
 model ModuleConfig {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   workspaceId String
   moduleId    String
-  config      Json     @default("{}")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  config      Json      @default("{}")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   @@unique([workspaceId, moduleId])
   @@index([workspaceId])
@@ -1405,4 +1419,25 @@ enum PipelineEventStatus {
   PROCESSING
   COMPLETED
   FAILED
+}
+
+model WaitlistEntry {
+  id         String              @id @default(cuid())
+  email      String              @unique
+  status     WaitlistEntryStatus @default(PENDING)
+  notifiedAt DateTime?
+  metadata   Json?
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("waitlist_entries")
+}
+
+enum WaitlistEntryStatus {
+  PENDING
+  NOTIFIED
+  CONVERTED
 }

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { siteConfig } from "~/config/site";
 import LocaleToggler from "../shared/locale-toggler";
 import ThemeToggle from "../shared/theme-toggle";
-import { Logo } from "~/components/seumei/logo";
+import { Logo } from "~/components/shared/logo";
 import { Github, Twitter, Linkedin } from "lucide-react";
 
 const footerLinks = {

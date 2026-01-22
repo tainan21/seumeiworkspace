@@ -52,6 +52,11 @@
     "node_modules",
     ".next",
     ".velite",
-    "public/sw.js"
+    "public/sw.js",
+    "workspace-onboarding-flow-seu-mei-2",
+    "vitest.config.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "src/__tests__"
   ]
 }

@@ -9,7 +9,7 @@ import LocaleToggler from "~/components/shared/locale-toggler";
 import { buttonVariants } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { cn } from "~/lib/utils";
-import { Logo } from "~/components/seumei/logo";
+import { Logo } from "~/components/shared/logo";
 export default function Navbar({
   session,
   headerText,

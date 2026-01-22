@@ -26,51 +26,49 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { toast } from "~/hooks/use-toast";
-import { ProjectLimitError } from "~/domains/workspace/errors";
-import { createProject } from "../projects/action";
+import { useRouter } from "next/navigation";
+import { createWorkspace } from "./actions";
 
-export const projectSchema = z.object({
-  name: z.string().min(1, { message: "Please enter a project name." }),
-  domain: z.string().min(1, { message: "Please enter a project domain." }),
+export const workspaceSchema = z.object({
+  name: z.string().min(1, { message: "Por favor, insira o nome do workspace." }),
 });
 
-export type ProjectFormValues = z.infer<typeof projectSchema>;
+export type WorkspaceFormValues = z.infer<typeof workspaceSchema>;
 
 export default function CreateProjectModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const form = useForm<ProjectFormValues>({
-    resolver: zodResolver(projectSchema),
+  const router = useRouter();
+  const form = useForm<WorkspaceFormValues>({
+    resolver: zodResolver(workspaceSchema),
     defaultValues: {
       name: "",
-      domain: "",
     },
   });
 
-  async function onSubmit(values: ProjectFormValues) {
+  async function onSubmit(values: WorkspaceFormValues) {
     try {
-      await createProject(values);
-      toast({
-        title: "Projeto criado com sucesso",
-        description: `${values.name} foi criado com sucesso.`,
+      const result = await createWorkspace({
+        name: values.name,
       });
-      form.reset();
-      setIsOpen(false);
-    } catch (error) {
-      console.error("[CreateProjectModal] Error:", error);
 
-      if (error instanceof ProjectLimitError) {
-        toast({
-          title: "Limite de projetos atingido",
-          description:
-            "Você pode ter no máximo 3 projetos. Delete um projeto existente para criar um novo.",
-          variant: "destructive",
-        });
-        return;
+      if (!result.success) {
+        throw new Error(result.error || "Erro ao criar workspace");
       }
 
-      // Erro genérico
       toast({
-        title: "Erro ao criar projeto",
+        title: "Workspace criado com sucesso",
+        description: `${values.name} foi criado com sucesso.`,
+      });
+
+      form.reset();
+      setIsOpen(false);
+
+      // Redirecionar para o onboarding do novo workspace
+      router.push(`/${result.data.workspaceSlug}/onboarding`);
+    } catch (error) {
+      console.error("[CreateWorkspaceModal] Error:", error);
+      toast({
+        title: "Erro ao criar workspace",
         description:
           error instanceof Error
             ? error.message
@@ -79,6 +77,7 @@ export default function CreateProjectModal() {
       });
     }
   }
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -89,12 +88,12 @@ export default function CreateProjectModal() {
           <Button size="icon" variant="ghost">
             <Icons.projectPlus className="h-8 w-8" />
           </Button>
-          <p className="text-xl font-medium">Create a project</p>
+          <p className="text-xl font-medium">Criar novo workspace</p>
         </Card>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Project</DialogTitle>
+          <DialogTitle>Criar Workspace</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -103,22 +102,9 @@ export default function CreateProjectModal() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nome do Workspace</FormLabel>
                   <FormControl>
-                    <Input placeholder="XYZ" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="domain"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Domain</FormLabel>
-                  <FormControl>
-                    <Input placeholder="xyz.com" {...field} />
+                    <Input placeholder="Minha Empresa" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,10 +115,10 @@ export default function CreateProjectModal() {
                 {form.formState.isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating...
+                    Criando...
                   </>
                 ) : (
-                  "Create"
+                  "Criar"
                 )}
               </Button>
             </DialogFooter>
@@ -142,3 +128,4 @@ export default function CreateProjectModal() {
     </Dialog>
   );
 }
+

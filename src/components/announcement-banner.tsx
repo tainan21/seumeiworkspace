@@ -1,17 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
 
+// Chave única para este banner (pode ser alterada quando quiser forçar exibição novamente)
+const BANNER_STORAGE_KEY = "seumei_test_phase_banner_dismissed";
+const BANNER_VERSION = "v1"; // Incremente para forçar exibição novamente
+
 export function AnnouncementBanner() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false); // Começa como false para evitar flash
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Marca como montado (client-side)
+    setIsMounted(true);
+    
+    // Verifica se o usuário já fechou este banner
+    const dismissed = localStorage.getItem(`${BANNER_STORAGE_KEY}_${BANNER_VERSION}`);
+    
+    // Só mostra se não foi fechado antes
+    setIsVisible(dismissed !== "true");
+  }, []);
 
   const handleDismiss = () => {
+    // Salva no localStorage que o usuário fechou
+    localStorage.setItem(`${BANNER_STORAGE_KEY}_${BANNER_VERSION}`, "true");
     setIsVisible(false);
   };
 
-  if (!isVisible) return null;
+  // Não renderiza até estar montado (evita problemas de hidratação)
+  if (!isMounted || !isVisible) return null;
 
   return (
     <div className="bg-primary fixed top-0 right-0 left-0 z-50 border-b">

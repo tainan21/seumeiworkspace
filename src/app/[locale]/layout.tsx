@@ -5,7 +5,7 @@ import {
   THEME_PRESET_VALUES,
   type ThemePreset,
   type ThemeMode,
-} from "~/types/preferences/theme";
+} from "~/types/theme";
 import { Toaster } from "~/components/ui/sonner";
 import { AnnouncementBanner } from "~/components/announcement-banner";
 import Footer from "~/components/layout/footer";
@@ -93,6 +93,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         pt: "/pt",
         en: "/en",
         fr: "/fr",
+        es: "/es",
       },
     },
     appleWebApp: {
@@ -149,7 +150,6 @@ export default async function LocaleLayout({
           {children}
           {loginDialog}
         </main>
-        <Footer />
         <Toaster />
       </AppProviders>
     </>

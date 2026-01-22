@@ -13,7 +13,12 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,css}'",
-    "release": "release-it"
+    "release": "release-it",
+    "seed": "tsx scripts/seed-database.ts",
+    "generate:types": "tsx scripts/generate-types.ts",
+    "validate:schema": "tsx scripts/validate-schema.ts",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -63,6 +68,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-react": "^8.5.2",
     "eslint-plugin-unicorn": "^62.0.0",
     "framer-motion": "^12.23.26",

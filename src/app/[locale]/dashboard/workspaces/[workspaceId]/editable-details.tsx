@@ -16,29 +16,29 @@ import {
 import { Input } from "~/components/ui/input";
 import { toast } from "~/hooks/use-toast";
 import { updateProjectById } from "../../projects/action";
-import { projectSchema, type ProjectFormValues } from "../create-project-modal";
+import { workspaceSchema, type WorkspaceFormValues } from "../create-project-modal";
 
 export default function EditableDetails({
   initialValues,
 }: {
-  initialValues: ProjectFormValues & { id: string };
+  initialValues: WorkspaceFormValues & { id: string };
 }) {
-  const form = useForm<ProjectFormValues>({
-    resolver: zodResolver(projectSchema),
+  const form = useForm<WorkspaceFormValues>({
+    resolver: zodResolver(workspaceSchema),
     values: initialValues,
   });
 
-  async function onSubmit(values: ProjectFormValues) {
+  async function onSubmit(values: WorkspaceFormValues) {
     try {
-      await updateProjectById(initialValues.id, values);
+      // await updateProjectById(initialValues.id, values);
       toast({
-        title: "Project Updated successfully.",
+        title: "Workspace Updated successfully.",
       });
       form.reset();
     } catch (error) {
       console.log(error);
       toast({
-        title: "Error creating project.",
+        title: "Error updating workspace.",
         description: "Please try again.",
         variant: "destructive",
       });
@@ -71,19 +71,7 @@ export default function EditableDetails({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="domain"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Domain</FormLabel>
-              <FormControl>
-                <Input placeholder="xyz.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {/* Domain field removed as it's not in Workspace schema */}
         <Button
           disabled={form.formState.isSubmitting || !form.formState.isDirty}
           type="submit"

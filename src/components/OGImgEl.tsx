@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Logo } from "~/components/seumei/logo";
+import { Logo } from "~/components/shared/logo";
 export const RenderIMGEl = ({
   logo,
   image,

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import ThemeProvider from "~/components/shared/theme-provider";
 import { PreferencesStoreProvider } from "~/stores/preferences/preferences-provider";
 import { I18nProviderClient } from "~/locales/client";
-import type { ThemeMode, ThemePreset } from "~/types/preferences/theme";
+import type { ThemeMode, ThemePreset } from "~/types/theme";
 
 type Props = {
   children: React.ReactNode;

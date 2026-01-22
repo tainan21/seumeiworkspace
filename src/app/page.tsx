@@ -6,7 +6,7 @@
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
-import { Logo } from "~/components/seumei/logo";
+import { Logo } from "~/components/shared/logo";
 import { PricingSection } from "~/components/sections/pricing-section";
 import { BentoPricing } from "~/components/layout/bentoPrice";
 import {

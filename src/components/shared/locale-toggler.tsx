@@ -23,6 +23,10 @@ const locales = [
     name: "Français",
     value: "fr",
   },
+  {
+    name: "Español",
+    value: "es",
+  },
 ];
 
 export default function LocaleToggler() {
