@@ -31,7 +31,7 @@ model User {
   stripeCurrentPeriodEnd DateTime?               @map("stripe_current_period_end")
   projects               Project[]
   auditLogs              AuditLog[]              @relation("AuditLogUser")
-  analyticsEvents        AnalyticsEvent[]       @relation("AnalyticsEventUser")
+  analyticsEvents        AnalyticsEvent[]        @relation("AnalyticsEventUser")
 
   @@index([email])
   @@index([status])
@@ -78,6 +78,12 @@ model Workspace {
   settings           Json               @default("{}")
   enterpriseMotherId String?            @unique
   createdById        String
+  // Onboarding fields
+  theme              ThemeStyle?        @default(minimal)
+  topBarVariant      TopBarVariant?     @default(barTop_A)
+  billingPlan        BillingPlan?       @default(free)
+  locale             String?            @default("pt-BR")
+  timezone           String?            @default("America/Sao_Paulo")
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
   componentLayouts   ComponentLayout[]
@@ -93,12 +99,86 @@ model Workspace {
   analyticsMetrics   AnalyticsMetric[]
   auditLogs          AuditLog[]
   paymentLinks       PaymentLink[]
+  // Onboarding relations
+  brand              WorkspaceBrand?
+  company            WorkspaceCompany?
+  apps               WorkspaceApp[]
+  menuItems          MenuItem[]
 
   @@index([slug])
   @@index([status])
   @@index([type])
   @@index([category])
+  @@index([theme])
+  @@index([billingPlan])
   @@map("workspaces")
+}
+
+// Onboarding models
+model WorkspaceBrand {
+  id           String    @id @default(cuid())
+  workspaceId  String    @unique
+  logoUrl      String?
+  primaryColor String    @default("#18181B")
+  accentColor  String    @default("#3B82F6")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  workspace    Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@map("workspace_brands")
+}
+
+model WorkspaceCompany {
+  id              String          @id @default(cuid())
+  workspaceId     String          @unique
+  name            String
+  identifierType  IdentifierType?
+  identifierValue String?
+  companyType     CompanyType?
+  employeeCount   Int?
+  revenueRange    String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  workspace       Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@map("workspace_companies")
+}
+
+model WorkspaceApp {
+  id          String    @id @default(cuid())
+  workspaceId String
+  appId       String
+  isEnabled   Boolean   @default(true)
+  installedAt DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, appId])
+  @@index([workspaceId])
+  @@index([appId])
+  @@map("workspace_apps")
+}
+
+model MenuItem {
+  id          String     @id @default(cuid())
+  workspaceId String
+  itemId      String
+  label       String
+  icon        String
+  route       String
+  parentId    String?
+  orderIndex  Int        @default(0)
+  isVisible   Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  parent      MenuItem?  @relation("MenuItemParent", fields: [parentId], references: [id], onDelete: Cascade)
+  children    MenuItem[] @relation("MenuItemParent")
+
+  @@index([workspaceId, orderIndex])
+  @@index([parentId])
+  @@map("menu_items")
 }
 
 model WorkspaceMember {
@@ -1440,4 +1520,37 @@ enum WaitlistEntryStatus {
   PENDING
   NOTIFIED
   CONVERTED
+}
+
+// Onboarding enums
+enum ThemeStyle {
+  minimal
+  corporate
+  playful
+}
+
+enum TopBarVariant {
+  barTop_A
+  barTop_B
+  barTop_C
+}
+
+enum BillingPlan {
+  free
+  pro
+  enterprise
+}
+
+enum IdentifierType {
+  CNPJ
+  CPF
+}
+
+enum CompanyType {
+  MEI
+  Simples
+  EIRELI
+  Ltda
+  SA
+  Startup
 }

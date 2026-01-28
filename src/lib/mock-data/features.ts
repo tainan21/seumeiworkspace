@@ -1,4 +1,10 @@
-import type { Feature } from "~/components/onboarding/primitives/feature-selector";
+export interface Feature {
+  id: string;
+  name: string;
+  description: string;
+  icon?: string;
+  category?: string;
+}
 
 /**
  * Features disponíveis no onboarding

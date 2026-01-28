@@ -1,144 +1,136 @@
-"use client";
+"use client"
 
-import { Slider } from "~/components/ui/slider";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
-import { Label } from "~/components/ui/label";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
-import { useOnboardingStore } from "~/lib/stores/onboarding-store";
+import { motion } from "framer-motion"
+import { ArrowRight, ArrowLeft, Users, TrendingUp } from "lucide-react"
+import { cn } from "~/lib/utils"
+import { useOnboardingStore } from "~/lib/stores/onboarding-store"
+import { useReducedMotion } from "~/lib/hooks/use-reduced-motion"
+import { MOCK_COMPANY_TYPES, MOCK_REVENUE_RANGES } from "~/lib/mock-data/company-types"
+import { Button } from "~/components/ui/button"
+import { Label } from "~/components/ui/label" 
+import { Slider } from "~/components/ui/slider"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
+import type { CompanyType } from "~/types/workspace-onboarding"
 
-const COMPANY_TYPES = [
-  { value: "MEI", label: "MEI - Microempreendedor Individual" },
-  { value: "Simples", label: "Simples Nacional" },
-  { value: "EIRELI", label: "EIRELI" },
-  { value: "Ltda", label: "LTDA" },
-  { value: "SA", label: "S.A." },
-  { value: "Startup", label: "Startup" },
-];
-
-const REVENUE_RANGES = [
-  { value: "0-50k", label: "Até R$ 50.000" },
-  { value: "50k-100k", label: "R$ 50.000 - R$ 100.000" },
-  { value: "100k-500k", label: "R$ 100.000 - R$ 500.000" },
-  { value: "500k-1m", label: "R$ 500.000 - R$ 1.000.000" },
-  { value: "1m+", label: "Acima de R$ 1.000.000" },
-];
-
-/**
- * Step 3: Tipo & Tamanho Empresa
- * 
- * Permite escolher:
- * - Tipo de empresa (MEI, Simples, EIRELI, Ltda, SA, Startup)
- * - Número de funcionários (slider 1-500+)
- * - Faixa de faturamento (opcional)
- */
 export function CompanyTypeStep() {
-  const { formData, setFormData, goToNextStep, goToPreviousStep, canProceed } =
-    useOnboardingStore();
+  const reducedMotion = useReducedMotion()
+  const {
+    companyType,
+    setCompanyType,
+    employeeCount,
+    setEmployeeCount,
+    revenueRange,
+    setRevenueRange,
+    canProceed,
+    nextStep,
+    prevStep,
+    markStepComplete,
+  } = useOnboardingStore()
+
+  const handleContinue = () => {
+    if (canProceed(3)) {
+      markStepComplete(3)
+      nextStep()
+    }
+  }
+
+  const formatEmployeeCount = (count: number): string => {
+    if (count >= 500) return "500+"
+    return count.toString()
+  }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold mb-2">Tipo e Tamanho da Empresa</h2>
-        <p className="text-muted-foreground">
-          Isso nos ajuda a configurar o sistema ideal para você
-        </p>
+    <motion.div
+      initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      className="max-w-lg mx-auto p-6 space-y-8"
+    >
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-foreground mb-2">Tipo de Empresa</h2>
+        <p className="text-muted-foreground">Essas informações nos ajudam a sugerir o melhor template</p>
       </div>
 
-      <div className="space-y-6">
-        {/* Tipo de Empresa */}
-        <div>
-          <Label htmlFor="companyType">
-            Tipo de Empresa <span className="text-destructive">*</span>
-          </Label>
-          <Select
-            value={formData.companyType || ""}
-            onValueChange={(value) =>
-              setFormData({
-                companyType: value as
-                  | "MEI"
-                  | "Simples"
-                  | "EIRELI"
-                  | "Ltda"
-                  | "SA"
-                  | "Startup",
-              })
-            }
-          >
-            <SelectTrigger className="mt-2">
-              <SelectValue placeholder="Selecione o tipo" />
-            </SelectTrigger>
-            <SelectContent>
-              {COMPANY_TYPES.map((type) => (
-                <SelectItem key={type.value} value={type.value}>
-                  {type.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Número de Funcionários */}
-        <div>
-          <Label>
-            Número de Funcionários
-            {formData.employeeCount !== undefined && (
-              <span className="ml-2 text-primary font-semibold">
-                {formData.employeeCount}
-              </span>
-            )}
-          </Label>
-          <Slider
-            value={[formData.employeeCount || 1]}
-            onValueChange={([value]) =>
-              setFormData({ employeeCount: value })
-            }
-            min={1}
-            max={500}
-            step={1}
-            className="mt-4"
-          />
-          <div className="flex justify-between text-xs text-muted-foreground mt-2">
-            <span>1</span>
-            <span>500+</span>
-          </div>
-        </div>
-
-        {/* Faixa de Faturamento (Opcional) */}
-        <div>
-          <Label htmlFor="revenueRange">Faixa de Faturamento (Opcional)</Label>
-          <Select
-            value={formData.revenueRange || ""}
-            onValueChange={(value) => setFormData({ revenueRange: value })}
-          >
-            <SelectTrigger className="mt-2">
-              <SelectValue placeholder="Selecione a faixa" />
-            </SelectTrigger>
-            <SelectContent>
-              {REVENUE_RANGES.map((range) => (
-                <SelectItem key={range.value} value={range.value}>
-                  {range.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      {/* Company Type */}
+      <div className="space-y-3">
+        <Label>Tipo de empresa</Label>
+        <div className="grid grid-cols-2 gap-3">
+          {MOCK_COMPANY_TYPES.map((type, idx) => (
+            <motion.button
+              key={type.value}
+              initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.05 }}
+              onClick={() => setCompanyType(type.value as CompanyType)}
+              className={cn(
+                "text-left p-4 rounded-xl border-2 transition-all duration-200",
+                companyType === type.value ? "border-primary bg-primary/5" : "border-border hover:border-primary/30",
+              )}
+            >
+              <span className="font-medium text-foreground">{type.label}</span>
+              <p className="text-xs text-muted-foreground mt-0.5">{type.description}</p>
+            </motion.button>
+          ))}
         </div>
       </div>
 
-      <div className="flex justify-between pt-4">
-        <Button variant="outline" onClick={goToPreviousStep}>
+      {/* Employee Count */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <Label className="flex items-center gap-2">
+            <Users className="w-4 h-4" />
+            Número de funcionários
+          </Label>
+          <span className="text-sm font-medium text-primary">{formatEmployeeCount(employeeCount)}</span>
+        </div>
+        <Slider
+          value={[employeeCount]}
+          onValueChange={([v]) => setEmployeeCount(v)}
+          min={1}
+          max={500}
+          step={1}
+          className="w-full"
+        />
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <span>1</span>
+          <span>10</span>
+          <span>50</span>
+          <span>100</span>
+          <span>500+</span>
+        </div>
+      </div>
+
+      {/* Revenue Range */}
+      <div className="space-y-3">
+        <Label className="flex items-center gap-2">
+          <TrendingUp className="w-4 h-4" />
+          Faixa de faturamento anual
+        </Label>
+        <Select value={revenueRange} onValueChange={setRevenueRange}>
+          <SelectTrigger>
+            <SelectValue placeholder="Selecione (opcional)" />
+          </SelectTrigger>
+          <SelectContent>
+            {MOCK_REVENUE_RANGES.map((range) => (
+              <SelectItem key={range.value} value={range.value}>
+                {range.value}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex gap-3">
+        <Button variant="outline" onClick={prevStep} className="flex-1 bg-transparent">
+          <ArrowLeft className="w-4 h-4 mr-2" />
           Voltar
         </Button>
-        <Button onClick={goToNextStep} disabled={!canProceed(3)}>
+        <Button onClick={handleContinue} disabled={!canProceed(3)} className="flex-1">
           Continuar
+          <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
-    </div>
-  );
+    </motion.div>
+  )
 }

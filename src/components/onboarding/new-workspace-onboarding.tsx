@@ -2,19 +2,35 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "~/components/ui/card";
 import { Progress } from "~/components/ui/progress";
 import { StepIndicator } from "./primitives/step-indicator";
+import { useReducedMotion } from "~/lib/hooks/use-reduced-motion";
 import {
   IntroStep,
+} from "./steps/intro-step";
+import {
   ThemeFeaturesStep,
+} from "./steps/theme-features-step";
+import {
   CompanyTypeStep,
+} from "./steps/company-type-step";
+import {
   TemplateChoiceStep,
+} from "./steps/template-choice-step";
+import {
   CustomBuilderStep,
+} from "./steps/custom-builder-step";
+import {
   TemplateCustomizeStep,
+} from "./steps/template-customize-step";
+import {
   PreviewStep,
+} from "./steps/preview-step";
+import {
   CreateStep,
-} from "./steps";
+} from "./steps/create-step";
 import { useOnboardingStore } from "~/lib/stores/onboarding-store";
 
 const STEPS = [
@@ -28,12 +44,17 @@ const STEPS = [
   { id: 8, title: "Criar", description: "Finalizar" },
 ];
 
+interface NewWorkspaceOnboardingProps {
+  locale?: string;
+}
+
 /**
  * Onboarding para criação de novo workspace
  * Usa Zustand store para gerenciar estado
  */
-export function NewWorkspaceOnboarding() {
+export function NewWorkspaceOnboarding({ locale = "pt" }: NewWorkspaceOnboardingProps) {
   const router = useRouter();
+  const reducedMotion = useReducedMotion();
   const {
     currentStep,
     completedSteps,
@@ -61,7 +82,7 @@ export function NewWorkspaceOnboarding() {
       case 7:
         return <PreviewStep />;
       case 8:
-        return <CreateStep />;
+        return <CreateStep locale={locale} />;
       default:
         return <div>Passo desconhecido</div>;
     }
@@ -100,8 +121,18 @@ export function NewWorkspaceOnboarding() {
       </div>
 
       {/* Main Content */}
-      <Card className="min-h-[500px] p-6">
-        {renderStep()}
+      <Card className="min-h-[500px] p-6 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {renderStep()}
+          </motion.div>
+        </AnimatePresence>
       </Card>
 
       {/* Tip/Footer */}

@@ -1,6 +1,6 @@
 import { redirect, notFound } from "next/navigation";
 import { getWorkspaceContext, getWorkspacePermissions } from "~/lib/middleware/workspace.middleware";
-import { WorkspaceProvider } from "~/lib/hooks/useWorkspace";
+import { WorkspaceProvider } from "~/lib/hooks/useWorkspaceSession";
 import { LazyWorkspaceHeader, LazyWorkspaceSidebar } from "~/components/lazy";
 import * as WorkspaceService from "~/domains/workspace/services/workspace.service";
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useWorkspace } from "~/lib/hooks/useWorkspace";
+import { useWorkspaceSession } from "~/lib/hooks/useWorkspaceSession";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -88,7 +88,7 @@ const SYSTEM_MENU_ITEMS = [
  * Menu de navegação dinâmico baseado em features ativas
  */
 export function WorkspaceSidebar({ workspaceId }: WorkspaceSidebarProps) {
-  const { workspaceSlug } = useWorkspace();
+  const { workspaceSlug } = useWorkspaceSession();
   const pathname = usePathname();
 
   // TODO: Buscar features ativas do workspace

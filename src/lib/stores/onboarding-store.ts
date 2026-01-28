@@ -1,203 +1,267 @@
-"use client";
+// ============================================
+// STORE: Onboarding State
+// Zustand com persistência localStorage + syncToServer
+// ============================================
 
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import type {
+  ThemeStyle,
+  CompanyType,
+  TopBarVariant,
+  MenuComponent,
+  BrandColors,
+  IdentifierType,
+} from "~/types/workspace-onboarding";
+import { DEFAULT_MENU_COMPONENTS } from "~/lib/mock-data/components";
 
-/**
- * Dados do formulário de onboarding
- */
-export interface OnboardingFormData {
-  // Step 1: Intro + Dados Empresa
-  companyName?: string;
-  companyLogo?: string;
-  companyIdentifier?: {
-    type: "CNPJ" | "CPF";
-    value: string;
-  };
+export type OnboardingStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type BuildChoice = "template" | "custom" | null;
 
-  // Step 2: Tema & Features
-  theme?: "minimal" | "corporate" | "playful";
-  selectedFeatures?: string[];
-
-  // Step 3: Tipo & Tamanho
-  companyType?: "MEI" | "Simples" | "EIRELI" | "Ltda" | "SA" | "Startup";
-  employeeCount?: number;
-  revenueRange?: string;
-
-  // Step 4: Template ou Custom
-  useTemplate?: boolean;
-  templateId?: string;
-
-  // Step 5: Custom Builder (se não usar template)
-  customColors?: {
-    primary: string;
-    accent: string;
-  };
-  topBarVariant?: "barTop-A" | "barTop-B" | "barTop-C";
-  menuComponents?: import("~/domains/workspace/assemble-menu").MenuComponent[];
-
-  // Step 6: Template Customize (se usar template)
-  templateCustomizations?: {
-    colors?: {
-      primary: string;
-      accent: string;
-    };
-    menuOrder?: string[];
-    enabledModules?: string[];
-  };
+export interface OnboardingState {
+  currentStep: OnboardingStep;
+  // Step 1
+  companyName: string;
+  companyLogo: string | null;
+  identifierType: IdentifierType;
+  identifierValue: string;
+  // Step 2
+  theme: ThemeStyle;
+  selectedFeatures: string[];
+  // Step 3
+  companyType: CompanyType | null;
+  employeeCount: number;
+  revenueRange: string;
+  // Step 4
+  buildChoice: BuildChoice;
+  selectedTemplate: string | null;
+  // Step 5/6
+  menuComponents: MenuComponent[];
+  topBarVariant: TopBarVariant;
+  brandColors: BrandColors;
+  // Step 7
+  compatibilityWarnings: string[];
+  userAcceptedWarnings: boolean;
+  // Metadata
+  completedSteps: OnboardingStep[];
+  lastSavedAt: string | null;
 }
 
-/**
- * Estado do store de onboarding
- */
-interface OnboardingStore {
-  // Estado do fluxo
-  currentStep: number;
-  completedSteps: number[];
-  isCompleted: boolean;
-
-  // Dados do formulário
-  formData: OnboardingFormData;
-
-  // Ações
-  setCurrentStep: (step: number) => void;
-  setFormData: (data: Partial<OnboardingFormData>) => void;
-  completeStep: (step: number) => void;
-  goToNextStep: () => void;
-  goToPreviousStep: () => void;
-  reset: () => void;
-  canProceed: (step: number) => boolean;
-}
-
-const MAX_STEPS = 8;
-
-const defaultFormData: OnboardingFormData = {
+const INITIAL_STATE: OnboardingState = {
+  currentStep: 1,
+  // Step 1
+  companyName: "",
+  companyLogo: null,
+  identifierType: "CNPJ",
+  identifierValue: "",
+  // Step 2
+  theme: "minimal",
   selectedFeatures: [],
-  menuComponents: [],
+  // Step 3
+  companyType: null,
+  employeeCount: 1,
+  revenueRange: "",
+  // Step 4
+  buildChoice: null,
+  selectedTemplate: null,
+  // Step 5/6
+  menuComponents: DEFAULT_MENU_COMPONENTS,
+  topBarVariant: "barTop-A",
+  brandColors: { primary: "#18181B", accent: "#3B82F6" },
+  // Step 7
+  compatibilityWarnings: [],
+  userAcceptedWarnings: false,
+  // Metadata
+  completedSteps: [],
+  lastSavedAt: null,
 };
 
-/**
- * Store Zustand para gerenciar estado do onboarding
- * Persiste dados no localStorage
- */
-export const useOnboardingStore = create<OnboardingStore>()(
+interface OnboardingActions {
+  // Navigation
+  setStep: (step: OnboardingStep) => void;
+  nextStep: () => void;
+  prevStep: () => void;
+  markStepComplete: (step: OnboardingStep) => void;
+
+  // Step 1: Intro
+  setCompanyName: (name: string) => void;
+  setCompanyLogo: (logo: string | null) => void;
+  setIdentifierType: (type: IdentifierType) => void;
+  setIdentifierValue: (value: string) => void;
+
+  // Step 2: Theme & Features
+  setTheme: (theme: ThemeStyle) => void;
+  toggleFeature: (featureId: string) => void;
+  setFeatures: (features: string[]) => void;
+
+  // Step 3: Company Type
+  setCompanyType: (type: CompanyType) => void;
+  setEmployeeCount: (count: number) => void;
+  setRevenueRange: (range: string) => void;
+
+  // Step 4: Choice
+  setBuildChoice: (choice: BuildChoice) => void;
+  setSelectedTemplate: (templateId: string | null) => void;
+
+  // Step 5/6: Customization
+  setMenuComponents: (components: MenuComponent[]) => void;
+  reorderMenuComponents: (fromIndex: number, toIndex: number) => void;
+  setTopBarVariant: (variant: TopBarVariant) => void;
+  setBrandColors: (colors: BrandColors) => void;
+
+  // Step 7: Preview
+  setCompatibilityWarnings: (warnings: string[]) => void;
+  acceptWarnings: () => void;
+
+  // Utilities
+  reset: () => void;
+  syncToServer: () => Promise<void>;
+  canProceed: (step: OnboardingStep) => boolean;
+}
+
+export const useOnboardingStore = create<OnboardingState & OnboardingActions>()(
   persist(
     (set, get) => ({
-      currentStep: 1,
-      completedSteps: [],
-      isCompleted: false,
-      formData: defaultFormData,
+      ...INITIAL_STATE,
 
-      setCurrentStep: (step: number) => {
-        if (step < 1 || step > MAX_STEPS) return;
-        set({ currentStep: step });
-      },
+      // Navigation
+      setStep: (step) => set({ currentStep: step }),
 
-      setFormData: (data: Partial<OnboardingFormData>) => {
-        set((state) => ({
-          formData: { ...state.formData, ...data },
-        }));
-      },
+      nextStep: () => {
+        const { currentStep, buildChoice } = get();
+        let next: OnboardingStep = currentStep;
 
-      completeStep: (step: number) => {
-        set((state) => {
-          const newCompletedSteps = [...state.completedSteps];
-          if (!newCompletedSteps.includes(step)) {
-            newCompletedSteps.push(step);
-          }
-          return {
-            completedSteps: newCompletedSteps,
-            isCompleted: newCompletedSteps.length === MAX_STEPS,
-          };
-        });
-      },
-
-      goToNextStep: () => {
-        const { currentStep, completedSteps } = get();
-        if (currentStep < MAX_STEPS) {
-          const newStep = currentStep + 1;
-          set({ currentStep: newStep });
-          get().completeStep(currentStep);
+        if (currentStep === 4) {
+          // Após escolha, ir para step 5 (custom) ou 6 (template)
+          next = buildChoice === "custom" ? 5 : 6;
+        } else if (currentStep === 5 || currentStep === 6) {
+          // Ambos vão para preview
+          next = 7;
+        } else if (currentStep < 8) {
+          next = (currentStep + 1) as OnboardingStep;
         }
+
+        set({ currentStep: next });
       },
 
-      goToPreviousStep: () => {
+      prevStep: () => {
         const { currentStep } = get();
-        if (currentStep > 1) {
-          set({ currentStep: currentStep - 1 });
+        let prev: OnboardingStep = currentStep;
+
+        if (currentStep === 5 || currentStep === 6) {
+          prev = 4;
+        } else if (currentStep > 1) {
+          prev = (currentStep - 1) as OnboardingStep;
+        }
+
+        set({ currentStep: prev });
+      },
+
+      markStepComplete: (step) => {
+        const { completedSteps } = get();
+        if (!completedSteps.includes(step)) {
+          set({ completedSteps: [...completedSteps, step] });
         }
       },
 
-      reset: () => {
-        set({
-          currentStep: 1,
-          completedSteps: [],
-          isCompleted: false,
-          formData: defaultFormData,
-        });
+      // Step 1
+      setCompanyName: (name) => set({ companyName: name }),
+      setCompanyLogo: (logo) => set({ companyLogo: logo }),
+      setIdentifierType: (type) => set({ identifierType: type }),
+      setIdentifierValue: (value) => set({ identifierValue: value }),
+
+      // Step 2
+      setTheme: (theme) => set({ theme }),
+      toggleFeature: (featureId) => {
+        const { selectedFeatures } = get();
+        const newFeatures = selectedFeatures.includes(featureId)
+          ? selectedFeatures.filter((f) => f !== featureId)
+          : [...selectedFeatures, featureId];
+        set({ selectedFeatures: newFeatures });
+      },
+      setFeatures: (features) => set({ selectedFeatures: features }),
+
+      // Step 3
+      setCompanyType: (type) => set({ companyType: type }),
+      setEmployeeCount: (count) => set({ employeeCount: count }),
+      setRevenueRange: (range) => set({ revenueRange: range }),
+
+      // Step 4
+      setBuildChoice: (choice) => set({ buildChoice: choice }),
+      setSelectedTemplate: (templateId) => set({ selectedTemplate: templateId }),
+
+      // Step 5/6
+      setMenuComponents: (components) => set({ menuComponents: components }),
+      reorderMenuComponents: (fromIndex, toIndex) => {
+        const { menuComponents } = get();
+        const newComponents = [...menuComponents];
+        const [removed] = newComponents.splice(fromIndex, 1);
+        newComponents.splice(toIndex, 0, removed);
+        set({ menuComponents: newComponents });
+      },
+      setTopBarVariant: (variant) => set({ topBarVariant: variant }),
+      setBrandColors: (colors) => set({ brandColors: colors }),
+
+      // Step 7
+      setCompatibilityWarnings: (warnings) => set({ compatibilityWarnings: warnings }),
+      acceptWarnings: () => set({ userAcceptedWarnings: true }),
+
+      // Utilities
+      reset: () => set(INITIAL_STATE),
+
+      syncToServer: async () => {
+        // Placeholder para sincronização futura com API real
+        // Por enquanto, apenas marca o timestamp
+        set({ lastSavedAt: new Date().toISOString() });
+        // Quando API real estiver pronta:
+        // await fetch('/api/domains/onboarding/sync', { ... })
       },
 
-      canProceed: (step: number): boolean => {
-        const { formData } = get();
-
+      canProceed: (step) => {
+        const state = get();
         switch (step) {
           case 1:
-            // Step 1: Nome da empresa obrigatório
-            return !!formData.companyName?.trim();
-
+            return state.companyName.trim().length > 0;
           case 2:
-            // Step 2: Pelo menos 1 feature selecionada
-            return (
-              Array.isArray(formData.selectedFeatures) &&
-              formData.selectedFeatures.length > 0
-            );
-
+            return state.selectedFeatures.length > 0;
           case 3:
-            // Step 3: Tipo de empresa obrigatório
-            return !!formData.companyType;
-
+            return state.companyType !== null;
           case 4:
-            // Step 4: Escolha entre template ou custom
-            return formData.useTemplate !== undefined;
-
+            return state.buildChoice !== null;
           case 5:
-            // Step 5: Custom builder - menu e topbar configurados
-            if (formData.useTemplate === false) {
-              return (
-                !!formData.topBarVariant &&
-                Array.isArray(formData.menuComponents) &&
-                formData.menuComponents.length > 0
-              );
-            }
-            return true;
-
           case 6:
-            // Step 6: Template customize - customizações aplicadas
-            if (formData.useTemplate === true) {
-              return !!formData.templateId;
-            }
-            return true;
-
+            return state.menuComponents.length > 0;
           case 7:
-            // Step 7: Preview - sempre pode prosseguir
-            return true;
-
-          case 8:
-            // Step 8: Create - sempre pode prosseguir
-            return true;
-
+            return state.userAcceptedWarnings || state.compatibilityWarnings.length === 0;
           default:
-            return false;
+            return true;
         }
       },
     }),
     {
-      name: "onboarding-store",
+      name: "seumei-onboarding",
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
+        // Persistir apenas dados do onboarding, não ações
         currentStep: state.currentStep,
+        companyName: state.companyName,
+        companyLogo: state.companyLogo,
+        identifierType: state.identifierType,
+        identifierValue: state.identifierValue,
+        theme: state.theme,
+        selectedFeatures: state.selectedFeatures,
+        companyType: state.companyType,
+        employeeCount: state.employeeCount,
+        revenueRange: state.revenueRange,
+        buildChoice: state.buildChoice,
+        selectedTemplate: state.selectedTemplate,
+        menuComponents: state.menuComponents,
+        topBarVariant: state.topBarVariant,
+        brandColors: state.brandColors,
+        compatibilityWarnings: state.compatibilityWarnings,
+        userAcceptedWarnings: state.userAcceptedWarnings,
         completedSteps: state.completedSteps,
-        isCompleted: state.isCompleted,
-        formData: state.formData,
+        lastSavedAt: state.lastSavedAt,
       }),
     }
   )

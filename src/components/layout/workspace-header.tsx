@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useWorkspace } from "~/lib/hooks/useWorkspace";
+import { useWorkspaceSession } from "~/lib/hooks/useWorkspaceSession";
 import { Settings, Users, Building2, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -26,7 +26,7 @@ export function WorkspaceHeader({
   workspaceName,
   workspaceSlug,
 }: WorkspaceHeaderProps) {
-  const { role, canManage, isAdmin } = useWorkspace();
+  const { role, canManage, isAdmin } = useWorkspaceSession();
 
   return (
     <header className="bg-background border-b sticky top-0 z-40">

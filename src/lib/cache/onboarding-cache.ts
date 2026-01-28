@@ -26,7 +26,7 @@ const EnterpriseDataSchema = z.object({
 });
 
 type EnterpriseData = z.infer<typeof EnterpriseDataSchema>;
-
+    
 interface CachedEnterpriseData {
     workspaceId: string;
     name: string;

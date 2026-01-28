@@ -1,134 +1,166 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Upload, X, Image as ImageIcon } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
+import type React from "react"
+
+import { useState, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Upload, X, ImageIcon, Loader2 } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { useReducedMotion } from "@/lib/hooks/use-reduced-motion"
+
+type UploaderState = "idle" | "dragging" | "uploading" | "success" | "error"
 
 interface UploaderProps {
-  accept?: string;
-  maxSize?: number; // em MB
-  value?: string; // URL ou base64
-  onUpload: (file: File) => Promise<string> | string;
-  onRemove?: () => void;
-  className?: string;
+  value: string | null
+  onUpload: (dataUrl: string) => void
+  onRemove: () => void
+  accept?: string
+  maxSizeMB?: number
+  className?: string
 }
 
-type UploadState = "idle" | "uploading" | "success" | "error";
+export function Uploader({ value, onUpload, onRemove, accept = "image/*", maxSizeMB = 5, className }: UploaderProps) {
+  const [state, setState] = useState<UploaderState>(value ? "success" : "idle")
+  const [error, setError] = useState<string | null>(null)
+  const reducedMotion = useReducedMotion()
 
-/**
- * Componente de upload de arquivo
- * Suporta preview de imagem e estados de loading
- */
-export function Uploader({
-  accept = "image/*",
-  maxSize = 5,
-  value,
-  onUpload,
-  onRemove,
-  className,
-}: UploaderProps) {
-  const [state, setState] = useState<UploadState>("idle");
-  const [error, setError] = useState<string | null>(null);
+  const handleFile = useCallback(
+    async (file: File) => {
+      setError(null)
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+      // Validar tipo
+      if (!file.type.startsWith("image/")) {
+        setError("Apenas imagens são aceitas")
+        setState("error")
+        return
+      }
 
-    // Validar tamanho
-    const fileSizeMB = file.size / (1024 * 1024);
-    if (fileSizeMB > maxSize) {
-      setError(`Arquivo muito grande. Máximo: ${maxSize}MB`);
-      setState("error");
-      return;
-    }
+      // Validar tamanho
+      if (file.size > maxSizeMB * 1024 * 1024) {
+        setError(`Tamanho máximo: ${maxSizeMB}MB`)
+        setState("error")
+        return
+      }
 
-    setState("uploading");
-    setError(null);
+      setState("uploading")
 
-    try {
-      // Por enquanto, criar URL local (mock)
-      // Em produção, fazer upload real
-      const url = URL.createObjectURL(file);
-      await onUpload(file);
-      setState("success");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro ao fazer upload");
-      setState("error");
-    }
-  };
+      // Simular upload e converter para base64
+      await new Promise((r) => setTimeout(r, 1000))
+
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const dataUrl = e.target?.result as string
+        onUpload(dataUrl)
+        setState("success")
+      }
+      reader.onerror = () => {
+        setError("Erro ao processar imagem")
+        setState("error")
+      }
+      reader.readAsDataURL(file)
+    },
+    [maxSizeMB, onUpload],
+  )
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault()
+      setState("idle")
+      const file = e.dataTransfer.files[0]
+      if (file) handleFile(file)
+    },
+    [handleFile],
+  )
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) handleFile(file)
+  }
 
   const handleRemove = () => {
-    if (value && value.startsWith("blob:")) {
-      URL.revokeObjectURL(value);
-    }
-    onRemove?.();
-    setState("idle");
-    setError(null);
-  };
+    onRemove()
+    setState("idle")
+    setError(null)
+  }
 
   return (
-    <div className={cn("space-y-2", className)}>
-      {value ? (
-        <div className="relative group">
-          <div className="relative w-full h-32 rounded-lg border-2 border-dashed border-muted overflow-hidden">
-            <img
-              src={value}
-              alt="Preview"
-              className="w-full h-full object-cover"
+    <div className={cn("relative", className)}>
+      <AnimatePresence mode="wait">
+        {value && state === "success" ? (
+          <motion.div
+            key="preview"
+            initial={reducedMotion ? false : { opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="relative aspect-square w-32 rounded-xl overflow-hidden border-2 border-primary/20 bg-muted"
+          >
+            <img src={value || "/placeholder.svg"} alt="Logo preview" className="w-full h-full object-cover" />
+            <button
+              onClick={handleRemove}
+              className="absolute top-2 right-2 p-1.5 rounded-full bg-background/80 backdrop-blur-sm hover:bg-destructive hover:text-destructive-foreground transition-colors"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </motion.div>
+        ) : (
+          <motion.label
+            key="upload"
+            initial={reducedMotion ? false : { opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            onDragOver={(e) => {
+              e.preventDefault()
+              setState("dragging")
+            }}
+            onDragLeave={() => setState("idle")}
+            onDrop={handleDrop}
+            className={cn(
+              "flex flex-col items-center justify-center gap-3",
+              "aspect-square w-32 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-200",
+              state === "idle" && "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50",
+              state === "dragging" && "border-primary bg-primary/5 scale-105",
+              state === "uploading" && "border-muted-foreground/25 bg-muted/50 pointer-events-none",
+              state === "error" && "border-destructive/50 bg-destructive/5",
+            )}
+          >
+            <input
+              type="file"
+              accept={accept}
+              onChange={handleChange}
+              className="hidden"
+              disabled={state === "uploading"}
             />
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={handleRemove}
-                type="button"
-              >
-                <X className="h-4 w-4 mr-2" />
-                Remover
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <label
-          className={cn(
-            "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors",
-            state === "uploading"
-              ? "border-primary bg-primary/5"
-              : "border-muted hover:border-primary/50",
-            className
-          )}
-        >
-          <input
-            type="file"
-            accept={accept}
-            onChange={handleFileSelect}
-            className="hidden"
-            disabled={state === "uploading"}
-          />
-          {state === "uploading" ? (
-            <div className="flex flex-col items-center gap-2">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-              <span className="text-sm text-muted-foreground">Enviando...</span>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center gap-2">
-              <ImageIcon className="h-8 w-8 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">
-                Clique para fazer upload
-              </span>
-              <span className="text-xs text-muted-foreground">
-                Máximo {maxSize}MB
-              </span>
-            </div>
-          )}
-        </label>
-      )}
 
-      {error && (
-        <p className="text-sm text-destructive">{error}</p>
-      )}
+            {state === "uploading" ? (
+              <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" />
+            ) : state === "error" ? (
+              <ImageIcon className="w-6 h-6 text-destructive" />
+            ) : (
+              <Upload
+                className={cn(
+                  "w-6 h-6 transition-colors",
+                  state === "dragging" ? "text-primary" : "text-muted-foreground",
+                )}
+              />
+            )}
+
+            <span
+              className={cn(
+                "text-xs text-center px-2",
+                state === "error" ? "text-destructive" : "text-muted-foreground",
+              )}
+            >
+              {state === "uploading"
+                ? "Enviando..."
+                : state === "error"
+                  ? error
+                  : state === "dragging"
+                    ? "Solte aqui"
+                    : "Logo da empresa"}
+            </span>
+          </motion.label>
+        )}
+      </AnimatePresence>
     </div>
-  );
+  )
 }

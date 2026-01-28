@@ -1,93 +1,71 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { useReducedMotion } from "~/lib/hooks/use-reduced-motion";
 
 interface Step {
   id: number;
-  title: string;
-  description?: string;
+  label: string;
 }
 
 interface StepIndicatorProps {
   steps: Step[];
-  current: number;
-  completed: number[];
-  onStepClick?: (step: number) => void;
+  currentStep: number;
+  completedSteps: number[];
 }
 
-/**
- * Indicador de progresso dos steps do onboarding
- */
-export function StepIndicator({
-  steps,
-  current,
-  completed,
-  onStepClick,
-}: StepIndicatorProps) {
+export function StepIndicator({ steps, currentStep, completedSteps }: StepIndicatorProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between">
-        {steps.map((step, index) => {
-          const isCompleted = completed.includes(step.id);
-          const isCurrent = step.id === current;
-          const isClickable = onStepClick && (isCompleted || isCurrent);
+    <div className="flex items-center justify-center gap-1 px-4 py-3">
+      {steps.map((step, idx) => {
+        const isCompleted = completedSteps.includes(step.id);
+        const isCurrent = step.id === currentStep;
+        const isPast = step.id < currentStep;
 
-          return (
-            <div key={step.id} className="flex items-center flex-1">
-              {/* Step Circle */}
-              <div className="flex flex-col items-center flex-1">
-                <button
-                  type="button"
-                  onClick={() => isClickable && onStepClick?.(step.id)}
-                  disabled={!isClickable}
-                  className={cn(
-                    "flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors",
-                    isCompleted
-                      ? "bg-primary border-primary text-primary-foreground"
-                      : isCurrent
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-muted bg-background text-muted-foreground",
-                    isClickable && "cursor-pointer hover:border-primary/50",
-                    !isClickable && "cursor-not-allowed"
-                  )}
-                >
-                  {isCompleted ? (
-                    <Check className="h-5 w-5" />
-                  ) : (
-                    <span className="text-sm font-medium">{step.id}</span>
-                  )}
-                </button>
-                <div className="mt-2 text-center">
-                  <p
-                    className={cn(
-                      "text-xs font-medium",
-                      isCurrent ? "text-primary" : "text-muted-foreground"
-                    )}
-                  >
-                    {step.title}
-                  </p>
-                  {step.description && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {step.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Connector Line */}
-              {index < steps.length - 1 && (
-                <div
-                  className={cn(
-                    "h-0.5 flex-1 mx-2 transition-colors",
-                    isCompleted ? "bg-primary" : "bg-muted"
-                  )}
-                />
+        return (
+          <div key={step.id} className="flex items-center">
+            <motion.div
+              initial={reducedMotion ? false : { scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: idx * 0.05 }}
+              className={cn(
+                "relative flex items-center justify-center",
+                "w-8 h-8 rounded-full text-xs font-medium transition-all duration-300",
+                isCurrent && "bg-primary text-primary-foreground ring-2 ring-primary/30 ring-offset-2",
+                isCompleted && !isCurrent && "bg-primary/20 text-primary",
+                !isCurrent && !isCompleted && isPast && "bg-muted text-muted-foreground",
+                !isCurrent && !isCompleted && !isPast && "bg-muted/50 text-muted-foreground/50"
               )}
-            </div>
-          );
-        })}
-      </div>
+            >
+              {isCompleted && !isCurrent ? <Check className="w-4 h-4" /> : step.id}
+
+              {isCurrent && (
+                <motion.span
+                  className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-medium text-muted-foreground whitespace-nowrap"
+                  initial={reducedMotion ? false : { opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {step.label}
+                </motion.span>
+              )}
+            </motion.div>
+
+            {idx < steps.length - 1 && (
+              <div
+                className={cn(
+                  "w-6 h-0.5 mx-1 transition-colors duration-300",
+                  isPast || isCompleted ? "bg-primary/30" : "bg-muted"
+                )}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

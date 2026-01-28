@@ -1,125 +1,314 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, Loader2 } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { useOnboardingStore } from "~/lib/stores/onboarding-store";
-import { toast } from "~/hooks/use-toast";
-import { createWorkspaceFromOnboarding } from "./actions";
+import { useEffect, useState, useCallback, useMemo } from "react"
+import { motion } from "framer-motion"
+import { CheckCircle2, XCircle, Loader2, ArrowRight, RotateCcw } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useOnboardingStore } from "~/lib/stores/onboarding-store"
+import { useReducedMotion } from "~/lib/hooks/use-reduced-motion"
+import { useApiCall } from "~/lib/hooks/use-api-call"
+import { createWorkspaceApi } from "~/lib/api-client"
+import { Button } from "~/components/ui/button"
+import type { CreateWorkspaceInput } from "~/types/workspace-onboarding"
 
-/**
- * Step 8: Create & Redirect
- * 
- * Executa:
- * - Validações de domínio (enforceSingleFreeWorkspace)
- * - Criação do workspace
- * - Aplicação de RBAC
- * - Redirect para dashboard
- * - Confetti animation
- */
-export function CreateStep() {
-  const router = useRouter();
-  const { formData, reset } = useOnboardingStore();
-  const [isCreating, setIsCreating] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+type CreatePhase = "creating" | "success" | "error"
 
-  const handleCreate = async () => {
-    setIsCreating(true);
-    setError(null);
+interface CreateStepProps {
+  locale?: string;
+}
+
+export function CreateStep({ locale = "pt" }: CreateStepProps) {
+  const router = useRouter()
+  const reducedMotion = useReducedMotion()
+  const [phase, setPhase] = useState<CreatePhase>("creating")
+  const [confetti, setConfetti] = useState(false)
+
+  const {
+    companyName,
+    companyLogo,
+    identifierType,
+    identifierValue,
+    theme,
+    selectedFeatures,
+    companyType,
+    employeeCount,
+    selectedTemplate,
+    menuComponents,
+    topBarVariant,
+    brandColors,
+    markStepComplete,
+    reset,
+  } = useOnboardingStore()
+
+  const [apiState, executeCreate, resetApi] = useApiCall(createWorkspaceApi)
+
+  // Build input once per invocation (sem userId - será preenchido pela API)
+  const buildInput = useCallback((): Omit<CreateWorkspaceInput, "userId"> | null => {
+    if (!companyType) return null
+
+    return {
+      // userId será preenchido pela API (não enviar)
+      name: companyName,
+      brand: {
+        logo: companyLogo || undefined,
+        colors: brandColors,
+      },
+      company: {
+        name: companyName,
+        identifier: identifierValue ? { type: identifierType, value: identifierValue } : undefined,
+      },
+      theme,
+      companyType,
+      employeeCount,
+      template: selectedTemplate || undefined,
+      selectedFeatures,
+      menuComponents,
+      topBarVariant,
+    }
+  }, [
+    companyName,
+    companyLogo,
+    brandColors,
+    identifierType,
+    identifierValue,
+    theme,
+    companyType,
+    employeeCount,
+    selectedTemplate,
+    selectedFeatures,
+    menuComponents,
+    topBarVariant,
+  ])
+
+  const handleCreate = useCallback(async () => {
+    const input = buildInput()
+    if (!input) {
+      setPhase("error")
+      return
+    }
+
+    setPhase("creating")
 
     try {
-      // Criar workspace usando server action
-      const result = await createWorkspaceFromOnboarding(formData);
+      const result = await executeCreate(input)
 
-      if (result.success && result.workspaceSlug) {
-        setIsSuccess(true);
-        
-        // Reset store após sucesso
-        setTimeout(() => {
-          reset();
-          router.push(`/${result.workspaceSlug}`);
-        }, 2000);
+      if (result?.success) {
+        markStepComplete?.(8)
+        setPhase("success")
+        setConfetti(true)
+
+        // minimal confetti life
+        if (!reducedMotion) {
+          setTimeout(() => setConfetti(false), 2000)
+        }
       } else {
-        setError(result.error || "Erro ao criar workspace");
-        toast({
-          title: "Erro ao criar workspace",
-          description: result.error || "Tente novamente",
-          variant: "destructive",
-        });
+        setPhase("error")
       }
-    } catch (err) {
-      console.error("[CreateStep] Error:", err);
-      setError(
-        err instanceof Error ? err.message : "Erro ao criar workspace"
-      );
-      toast({
-        title: "Erro ao criar workspace",
-        description: err instanceof Error ? err.message : "Tente novamente",
-        variant: "destructive",
-      });
-    } finally {
-      setIsCreating(false);
+    } catch (_err) {
+      // make sure we set error state so UI can show retry/reset
+      setPhase("error")
     }
-  };
+  }, [buildInput, executeCreate, markStepComplete, reducedMotion])
+
+  // Run once on mount (or when the buildInput signature changes)
+  useEffect(() => {
+    handleCreate()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleCreate])
+
+  const handleGoToDashboard = useCallback(() => {
+    // Cleanup onboarding state and go to dashboard
+    reset?.();
+    
+    if (apiState.data?.success && apiState.data.workspace) {
+      const workspace = apiState.data.workspace;
+      
+      // Validar formato WorkspaceLayoutContract
+      if (
+        workspace.workspaceId &&
+        workspace.slug &&
+        workspace.name &&
+        workspace.theme &&
+        workspace.brand?.colors &&
+        workspace.menuItems &&
+        workspace.topBarVariant &&
+        workspace.apps
+      ) {
+        // Salvar no formato correto
+        localStorage.setItem("seumei-workspace", JSON.stringify(workspace));
+        
+        // Sempre redirecionar para sistema com locale
+        router.push(`/${locale}/sistema/dashboard`);
+      } else {
+        console.error("[CreateStep] Workspace format invalid:", workspace);
+        router.push(`/${locale}/sistema/onboarding`);
+      }
+    } else {
+      router.push(`/${locale}/sistema/onboarding`);
+    }
+  }, [reset, router, apiState.data, locale])
+
+  const handleRetry = useCallback(() => {
+    // keep existing inputs and simply try the creation again
+    resetApi();
+    handleCreate();
+  }, [resetApi, handleCreate]);
+
+  const handleResetFlow = useCallback(() => {
+    // full UI + store reset, stays on same route
+    resetApi();
+    reset?.();
+    setPhase("creating");
+    // small tick to allow UI to reset before re-run
+    setTimeout(() => setPhase("creating"), 0);
+  }, [resetApi, reset]);
+
+  const isLoading = phase === "creating" || apiState.isLoading;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold mb-2">Criar Workspace</h2>
-        <p className="text-muted-foreground">
-          Estamos quase lá! Clique no botão abaixo para criar seu workspace
-        </p>
-      </div>
+    <motion.div
+      initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="max-w-md mx-auto p-6 text-center"
+    >
+      {/* Confetti Canvas */}
+      {confetti && !reducedMotion && (
+        <div className="fixed inset-0 pointer-events-none z-50">
+          <ConfettiEffect reducedMotion={reducedMotion} />
+        </div>
+      )}
 
-      <AnimatePresence>
-        {isSuccess ? (
+      {phase === "creating" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
+          <div className="w-20 h-20 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+            <Loader2 className="w-10 h-10 text-primary animate-spin" />
+          </div>
+
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-2">Criando seu workspace...</h2>
+            <p className="text-muted-foreground">Estamos configurando tudo para você</p>
+          </div>
+
+          {/* Progress steps */}
+          <div className="space-y-3 text-left max-w-xs mx-auto">
+            {[
+              "Validando dados",
+              "Criando estrutura",
+              "Aplicando tema",
+              "Configurando permissões",
+            ].map((step, idx) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.18 }}
+                className="flex items-center gap-3 text-sm"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: idx * 0.18 + 0.08 }}
+                  className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center"
+                >
+                  <CheckCircle2 className="w-3 h-3 text-primary" />
+                </motion.div>
+                <span className="text-muted-foreground">{step}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {phase === "success" && (
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="space-y-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center space-y-4 py-8"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+            className="w-20 h-20 mx-auto rounded-full bg-green-500/10 flex items-center justify-center"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              <CheckCircle className="h-16 w-16 text-primary mx-auto" />
-            </motion.div>
-            <h3 className="text-2xl font-bold">Workspace criado com sucesso!</h3>
-            <p className="text-muted-foreground">
-              Redirecionando para o dashboard...
-            </p>
+            <CheckCircle2 className="w-10 h-10 text-green-500" />
           </motion.div>
-        ) : (
-          <div className="space-y-4">
-            {error && (
-              <div className="p-4 rounded-lg bg-destructive/10 border border-destructive text-destructive">
-                <p className="font-medium">Erro</p>
-                <p className="text-sm">{error}</p>
+
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-2">Workspace criado!</h2>
+            <p className="text-muted-foreground">Seu sistema está pronto para uso</p>
+          </div>
+
+          <Button onClick={handleGoToDashboard} size="lg" className="w-full">
+            Ir para o Dashboard
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </motion.div>
+      )}
+
+      {phase === "error" && (
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="space-y-6">
+          <div className="w-20 h-20 mx-auto rounded-full bg-destructive/10 flex items-center justify-center">
+            <XCircle className="w-10 h-10 text-destructive" />
+          </div>
+
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-2">Erro ao criar workspace</h2>
+            <p className="text-muted-foreground mb-4">{apiState.error || "Algo deu errado. Tente novamente."}</p>
+
+            {apiState.data && !apiState.data.success && (
+              <div className="text-left bg-destructive/5 rounded-lg p-3 text-sm space-y-2">
+                {apiState.data.errors?.map((err, idx) => (
+                  <p key={idx} className="text-destructive">
+                    • {err.message}
+                    {err.suggestion && <span className="block text-muted-foreground ml-3">{err.suggestion}</span>}
+                  </p>
+                ))}
               </div>
             )}
+          </div>
 
-            <Button
-              onClick={handleCreate}
-              disabled={isCreating}
-              size="lg"
-              className="w-full"
-            >
-              {isCreating ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Criando workspace...
-                </>
-              ) : (
-                "Criar Workspace"
-              )}
+          {/* Actions: retry vs reset */}
+          <div className="flex flex-col gap-3">
+            <Button onClick={handleRetry} disabled={isLoading} variant="default" className="w-full" aria-label="Tentar novamente">
+              <RotateCcw className="w-4 h-4 mr-2" />
+              Tentar novamente
+            </Button>
+
+            <Button onClick={handleResetFlow} disabled={isLoading} variant="outline" className="w-full bg-transparent" aria-label="Voltar ao início">
+              Voltar ao início
             </Button>
           </div>
-        )}
-      </AnimatePresence>
+        </motion.div>
+      )}
+    </motion.div>
+  )
+}
+
+// Simple confetti effect
+function ConfettiEffect({ reducedMotion }: { reducedMotion?: boolean }) {
+  const pieces = useMemo(() => {
+    return Array.from({ length: 40 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 0.6,
+      duration: 1.2 + Math.random() * 1.4,
+      rotate: Math.random() * 360,
+      size: 6 + Math.random() * 8,
+      color: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"][Math.floor(Math.random() * 6)],
+    }))
+  }, [])
+
+  if (reducedMotion) return null
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {pieces.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ opacity: 0, y: -20, scale: 0 }}
+          animate={{ opacity: [1, 1, 0], y: [0, 120 + Math.random() * 200], scale: [1, 1, 0.2], rotate: p.rotate }}
+          transition={{ delay: p.delay, duration: p.duration, ease: "easeOut" }}
+          className="absolute rounded-sm"
+          style={{ left: `${p.left}%`, width: p.size, height: p.size, backgroundColor: p.color }}
+        />
+      ))}
     </div>
-  );
+  )
 }

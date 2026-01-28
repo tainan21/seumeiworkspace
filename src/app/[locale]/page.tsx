@@ -18,7 +18,6 @@ export default function Home() {
       <PricingSection />
       <CtaSection />
       <Footer />
-
-    </main>
+    </main>  
   )
 }

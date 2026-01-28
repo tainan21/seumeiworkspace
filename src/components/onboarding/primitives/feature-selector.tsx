@@ -1,125 +1,105 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Check } from "lucide-react";
-import { Card } from "~/components/ui/card";
-import { Checkbox } from "~/components/ui/checkbox";
-import { cn } from "~/lib/utils";
+import type React from "react"
 
-export interface Feature {
-  id: string;
-  name: string;
-  description: string;
-  icon?: string;
-  category?: string;
+import { motion } from "framer-motion"
+import {
+  FolderKanban,
+  FileText,
+  Users,
+  DollarSign,
+  Building2,
+  Calendar,
+  BarChart3,
+  FileBarChart,
+  Puzzle,
+  Map,
+  Check,
+} from "lucide-react"
+import { cn } from "~/lib/utils"
+import { MOCK_FEATURES } from "~/lib/mock-data/features"
+import { useReducedMotion } from "~/lib/hooks/use-reduced-motion"
+
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  FolderKanban,
+  FileText,
+  Users,
+  DollarSign,
+  Building2,
+  Calendar,
+  BarChart3,
+  FileBarChart,
+  Puzzle,
+  Map,
 }
 
 interface FeatureSelectorProps {
-  features: Feature[];
-  selected: string[];
-  onChange: (selected: string[]) => void;
-  max?: number;
-  className?: string;
+  selected: string[]
+  onToggle: (featureId: string) => void
+  recommended?: string[]
 }
 
-/**
- * Seletor de features com checkboxes
- * Suporta seleção múltipla e limite máximo
- */
-export function FeatureSelector({
-  features,
-  selected,
-  onChange,
-  max,
-  className,
-}: FeatureSelectorProps) {
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-
-  const toggleFeature = (featureId: string) => {
-    if (selected.includes(featureId)) {
-      onChange(selected.filter((id) => id !== featureId));
-    } else {
-      if (max && selected.length >= max) {
-        return; // Limite atingido
-      }
-      onChange([...selected, featureId]);
-    }
-  };
-
-  const toggleAll = () => {
-    if (selected.length === features.length) {
-      onChange([]);
-    } else {
-      const allIds = features.map((f) => f.id);
-      if (max) {
-        onChange(allIds.slice(0, max));
-      } else {
-        onChange(allIds);
-      }
-    }
-  };
-
-  const isSelected = (featureId: string) => selected.includes(featureId);
-  const canSelectMore = !max || selected.length < max;
+export function FeatureSelector({ selected, onToggle, recommended = [] }: FeatureSelectorProps) {
+  const reducedMotion = useReducedMotion()
 
   return (
-    <div className={cn("space-y-4", className)}>
-      {/* Header com contador */}
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <div>
-          <h3 className="font-semibold">Recursos</h3>
-          <p className="text-sm text-muted-foreground">
-            {selected.length} de {features.length} selecionados
-            {max && ` (máximo ${max})`}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={toggleAll}
-          className="text-sm text-primary hover:underline"
-        >
-          {selected.length === features.length ? "Desmarcar todos" : "Selecionar todos"}
-        </button>
+        <p className="text-sm text-muted-foreground">Selecione os módulos do seu sistema</p>
+        <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary">
+          {selected.length} selecionados
+        </span>
       </div>
 
-      {/* Lista de features */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {features.map((feature) => {
-          const selected = isSelected(feature.id);
-          const disabled = !selected && !canSelectMore;
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        {MOCK_FEATURES.map((feature, idx) => {
+          const Icon = ICON_MAP[feature.icon] || FolderKanban
+          const isSelected = selected.includes(feature.id)
+          const isRecommended = recommended.includes(feature.id)
 
           return (
-            <Card
+            <motion.button
               key={feature.id}
+              initial={reducedMotion ? false : { opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: idx * 0.03 }}
+              whileTap={reducedMotion ? undefined : { scale: 0.98 }}
+              onClick={() => onToggle(feature.id)}
               className={cn(
-                "p-4 cursor-pointer transition-all",
-                selected && "ring-2 ring-primary",
-                disabled && "opacity-50 cursor-not-allowed",
-                !disabled && "hover:shadow-md"
+                "relative flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-200",
+                isSelected ? "border-primary bg-primary/5" : "border-border hover:border-primary/30 hover:bg-muted/50",
               )}
-              onClick={() => !disabled && toggleFeature(feature.id)}
             >
-              <div className="flex items-start gap-3">
-                <Checkbox
-                  checked={selected}
-                  onCheckedChange={() => !disabled && toggleFeature(feature.id)}
-                  disabled={disabled}
-                  className="mt-1"
-                />
-                <div className="flex-1 space-y-1">
-                  <h4 className="font-medium">{feature.name}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-                {selected && (
-                  <Check className="h-5 w-5 text-primary shrink-0" />
+              {isRecommended && !isSelected && (
+                <span className="absolute -top-2 left-1/2 -translate-x-1/2 text-[9px] font-medium px-1.5 py-0.5 rounded bg-accent text-accent-foreground">
+                  Sugerido
+                </span>
+              )}
+
+              <div
+                className={cn(
+                  "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
+                  isSelected ? "bg-primary text-primary-foreground" : "bg-muted",
                 )}
+              >
+                <Icon className="w-5 h-5" />
               </div>
-            </Card>
-          );
+
+              <span className="text-xs font-medium text-center">{feature.name}</span>
+
+              {isSelected && (
+                <motion.div
+                  initial={reducedMotion ? false : { scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute top-2 right-2 w-4 h-4 rounded-full bg-primary flex items-center justify-center"
+                >
+                  <Check className="w-2.5 h-2.5 text-primary-foreground" />
+                </motion.div>
+              )}
+            </motion.button>
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
